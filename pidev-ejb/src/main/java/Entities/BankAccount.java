@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,4 +22,54 @@ public class BankAccount implements Serializable {
 	@Column(name = "Departement")
 	private String departement;
 
+	@ManyToOne
+	Client Clients;
+	
+	@ManyToOne
+	Bank Bank;
+	
+	public BankAccount() {}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getRib() {
+		return rib;
+	}
+
+	public void setRib(String rib) {
+		this.rib = rib;
+	}
+
+	public String getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(String departement) {
+		this.departement = departement;
+	}
+
+	public Client getClients() {
+		return Clients;
+	}
+
+	public void setClients(Client clients) {
+		Clients = clients;
+	}
+
+	public Bank getBank() {
+		return Bank;
+	}
+
+	public void setBank(Bank bank) {
+		Bank = bank;
+	}
+	
+	
+	
 }

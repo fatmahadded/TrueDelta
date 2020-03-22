@@ -1,26 +1,50 @@
 package Entities;
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
 @Table( name= "Portfolio")
 public class Portfolio implements Serializable{
 @Id
 @GeneratedValue(strategy= GenerationType.IDENTITY)
-@Column(name="CONT_ID")
+@Column(name="IDCount")
 private int id; // Clé primaire
-@Column(name="CONT_GAIN")
+@Column(name="GainCount")
 private int gain; 
-@Column(name="CONT_RISK")
+@Column(name="RiskCount")
 private int risk;
-@Column(name="CONT_AMOUNT")
+@Column(name="AmountCount")
 private int amount;
-// Constructeur et accesseurs (getters) et mutateurs (setters)
+
+@OneToOne
+private Conflict conflict;
+
+@OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolios")
+private Set<Messages> Messages;
+
+@OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolios")
+private Set<Feedback> Feedbacks;
+
+@ManyToOne
+AssetManager AssetManager;
+
+@ManyToOne
+Client Client;
+
+@OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolio")
+private Set<Transaction> Transactions;
+
+public Portfolio() {}
 public int getId() {
 	return id;
 }
@@ -45,5 +69,42 @@ public int getAmount() {
 public void setAmount(int amount) {
 	this.amount = amount;
 }
+public Conflict getConflict() {
+	return conflict;
+}
+public void setConflict(Conflict conflict) {
+	this.conflict = conflict;
+}
+public Set<Messages> getMessages() {
+	return Messages;
+}
+public void setMessages(Set<Messages> messages) {
+	Messages = messages;
+}
+public Set<Feedback> getFeedbacks() {
+	return Feedbacks;
+}
+public void setFeedbacks(Set<Feedback> feedbacks) {
+	Feedbacks = feedbacks;
+}
+public AssetManager getAssetManager() {
+	return AssetManager;
+}
+public void setAssetManager(AssetManager assetManager) {
+	AssetManager = assetManager;
+}
+public Client getClient() {
+	return Client;
+}
+public void setClient(Client client) {
+	Client = client;
+}
+public Set<Transaction> getTransactions() {
+	return Transactions;
+}
+public void setTransactions(Set<Transaction> transactions) {
+	Transactions = transactions;
+}
+
 
 }
