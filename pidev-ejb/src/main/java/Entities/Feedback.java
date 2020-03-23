@@ -18,9 +18,9 @@ public class Feedback implements Serializable{
 @GeneratedValue(strategy= GenerationType.IDENTITY)
 @Column(name="IdFeed")
 private int id; // Clé primaire
-@Column(name="MessageFeed")
+@Column(name="Message")
 private String message;
-@Column(name="ScoreFeed")
+@Column(name="Score")
 private int score;
 
 @ManyToOne

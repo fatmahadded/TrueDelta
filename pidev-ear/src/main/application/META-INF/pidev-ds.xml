@@ -23,7 +23,7 @@
    <!-- The datasource is bound into JNDI at this location. We reference 
       this in META-INF/persistence.xml -->
     <datasource jndi-name="java:jboss/datasources/pidevDS" pool-name="pidev"
-        enabled="true" use-java-context="true">
+        enabled="false" use-java-context="true">
         <connection-url>jdbc:h2:mem:pidev;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
         <driver>h2</driver>
         <security>

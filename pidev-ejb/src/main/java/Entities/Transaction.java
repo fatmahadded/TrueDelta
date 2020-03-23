@@ -15,43 +15,43 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table( name= "Transaction")
-public class Transaction implements Serializable{
-@Id
-@GeneratedValue(strategy= GenerationType.IDENTITY)
-@Column(name="IdTransaction")
-private int id; // Clé primaire
-@Column(name="=NameTransaction")
-private double amount;
+@Table(name = "Transaction")
+public class Transaction implements Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id")
+	private int id; // Clé primaire
+	@Column(name = "Amount")
+	private double amount;
 
-@ManyToOne
-Portfolio Portfolio;
+	@ManyToOne
+	Portfolio Portfolio;
 
-public Transaction() {}
+	public Transaction() {
+	}
 
-public int getId() {
-	return id;
-}
+	public int getId() {
+		return id;
+	}
 
-public void setId(int id) {
-	this.id = id;
-}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-public double getAmount() {
-	return amount;
-}
+	public double getAmount() {
+		return amount;
+	}
 
-public void setAmount(double amount) {
-	this.amount = amount;
-}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
-public Portfolio getPortfolio() {
-	return Portfolio;
-}
+	public Portfolio getPortfolio() {
+		return Portfolio;
+	}
 
-public void setPortfolio(Portfolio portfolio) {
-	Portfolio = portfolio;
-}
-
+	public void setPortfolio(Portfolio portfolio) {
+		Portfolio = portfolio;
+	}
 
 }
