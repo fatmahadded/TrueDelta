@@ -1,11 +1,14 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,10 +35,10 @@ public class Portfolio implements Serializable {
 	private Conflict conflict;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Portfolios")
-	private Set<Messages> Messages;
+	private List<Messages> Messages = new ArrayList<Messages>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Portfolios")
-	private Set<Feedback> Feedbacks;
+	private List<Feedback> Feedbacks = new ArrayList<Feedback>();
 
 	@ManyToOne
 	AssetManager AssetManager;
@@ -44,7 +47,7 @@ public class Portfolio implements Serializable {
 	Client Client;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Portfolio")
-	private Set<Transaction> Transactions;
+	private List<Transaction> Transactions = new ArrayList<Transaction>();
 
 	public Portfolio() {
 	}
@@ -89,19 +92,19 @@ public class Portfolio implements Serializable {
 		this.conflict = conflict;
 	}
 
-	public Set<Messages> getMessages() {
+	public List<Messages> getMessages() {
 		return Messages;
 	}
 
-	public void setMessages(Set<Messages> messages) {
+	public void setMessages(List<Messages> messages) {
 		Messages = messages;
 	}
 
-	public Set<Feedback> getFeedbacks() {
+	public List<Feedback> getFeedbacks() {
 		return Feedbacks;
 	}
 
-	public void setFeedbacks(Set<Feedback> feedbacks) {
+	public void setFeedbacks(List<Feedback> feedbacks) {
 		Feedbacks = feedbacks;
 	}
 
@@ -121,12 +124,16 @@ public class Portfolio implements Serializable {
 		Client = client;
 	}
 
-	public Set<Transaction> getTransactions() {
+	public List<Transaction> getTransactions() {
 		return Transactions;
 	}
 
-	public void setTransactions(Set<Transaction> transactions) {
+	public void setTransactions(List<Transaction> transactions) {
 		Transactions = transactions;
+	}
+	
+	public void addTransaction(Transaction transaction) {
+		this.Transactions.add(transaction);
 	}
 
 }
