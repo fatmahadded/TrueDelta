@@ -19,6 +19,8 @@ public class BankAccount implements Serializable {
 	private int id; // Clé primaire
 	@Column(name = "RIB")
 	private String rib;
+	@Column(name = "Montant")
+	private double montant;
 	@Column(name = "Departement")
 	private String departement;
 
@@ -68,6 +70,14 @@ public class BankAccount implements Serializable {
 
 	public void setBank(Bank bank) {
 		Bank = bank;
+	}
+
+	public double getMontant() {
+		return montant;
+	}
+
+	public void setMontant(double montant) {
+		this.montant = montant;
 	}
 	
 	
