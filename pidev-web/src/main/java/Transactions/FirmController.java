@@ -25,4 +25,11 @@ public class FirmController {
 		service.fetchFirms();
 		return Response.status(Status.OK).build();
 	}
+	
+	@GET
+	@Path("history")
+	public Response getHistory() {
+		service.fetchHistory();
+		return Response.status(Status.OK).build();
+	}
 }
