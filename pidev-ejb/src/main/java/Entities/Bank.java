@@ -32,6 +32,12 @@ public class Bank implements Serializable {
 	private Set<BankAccount> BankAccounts;
 
 	public Bank() {}
+	public Bank(String iban, String swift, String name, String logo) {
+		this.iban=iban;
+		this.swift=swift;
+		this.name=name;
+		this.logo=logo;
+	}
 
 	public int getId() {
 		return id;

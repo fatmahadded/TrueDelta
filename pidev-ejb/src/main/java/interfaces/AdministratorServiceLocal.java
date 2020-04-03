@@ -1,11 +1,14 @@
 package interfaces;
 
+import javax.ejb.Local;
+
 import Entities.Bank;
 import Entities.BankAccount;
 
+@Local
 public interface AdministratorServiceLocal {
-	public void ajouterBank(Bank bank); 
+	public int ajouterBank(Bank bank); 
 	public void supprimerBank(int idBank);
 	public BankAccount findCountbyCount(int IdBank , String NumCount, double montant);
-	public void affecterBank(int Id);  
+	  
 }
