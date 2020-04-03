@@ -16,15 +16,10 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
 	@Override
-	public void ajouterBank(Bank bank) {
+	public int ajouterBank(Bank bank) {
 		em.persist(bank);
+		return bank.getId();
 		}
-
-	@Override
-	public void affecterBank(int Id) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void supprimerBank(int idBank) {
