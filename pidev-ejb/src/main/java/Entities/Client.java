@@ -6,11 +6,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "Client")
@@ -29,10 +31,13 @@ public class Client implements Serializable {
 	private String image;
 
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="Client")
+	@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
+	            fetch=FetchType.EAGER)
 	private Set<Portfolio> Portfolios;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="Clients")
+	
+	@OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
+
 	private Set<BankAccount> BankAccounts;
 	
 	public Client() {}
@@ -93,8 +98,18 @@ public class Client implements Serializable {
 		BankAccounts = bankAccounts;
 	}
 
-	
-	
+	public void addPortfolio(Portfolio portfolio){
+		portfolio.setClient(this);
+		this.Portfolios.add(portfolio);
+	}
+
+	public void addBankAccount(BankAccount ba){
+		ba.setClients(this);
+		this.BankAccounts.add(ba);
+	}
+
+
+
 	
 	
 }
