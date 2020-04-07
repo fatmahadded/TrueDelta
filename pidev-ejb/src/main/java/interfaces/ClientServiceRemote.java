@@ -17,11 +17,12 @@ public int addClient(Client client);
 public void removeClientById(int IdClient);
 public void updateClient (Client clientnewvalues);
 public Client getClientById(int IdClient);
+public List<Client> findAllClients();
 
 
 public int addPortfolio(Portfolio portfolio);
 public void removePortfolioById(int IDCount);
-public void updatePortfolio(Portfolio portfolio);
+public void updatePortfolio(Portfolio portfolionewvalues);
 public Portfolio findPortfolioById (int Id);
 
 void affecterPortfolioAClient(int IDCount, int IdClient);
@@ -38,6 +39,5 @@ public void removeBankAccountById(int IdBankAccount);
 
 void affecterBankAccountClient(int IdBankAccount, int IdClient);
 public List<Integer> getAllBankAccountIDsByClient(int IdClient);
+ }
 
-
-}

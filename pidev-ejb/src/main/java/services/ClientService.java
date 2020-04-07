@@ -17,7 +17,7 @@ import interfaces.ClientServiceRemote;
 
 @Stateless
 @LocalBean
-public class ClientService implements ClientServiceRemote {
+public  class ClientService implements ClientServiceRemote {
 	// imputation-ejb in persistence.xml
 	@PersistenceContext(unitName = "imputation-ejb")
 	EntityManager em;
@@ -38,7 +38,7 @@ public class ClientService implements ClientServiceRemote {
 		System.out.println ("Out of removeClientById : ");
 
 	}
-//reccuperer la liste des portfolios
+
 @Override
 	public Client getClientById(int IdClient) {
 	System.out.println (" In getClientById : ");
@@ -46,13 +46,22 @@ public class ClientService implements ClientServiceRemote {
 	 System.out.println ("Out of getClientById : ");
 	 return client;
       }
+@Override
+public List<Client> findAllClients() {
+	System.out.println("In findALLUSERS : ");
+	List<Client> clients = em.createQuery("from Client",Client.class).getResultList();
+	System.out.println("Out findALLUSERS : ");
+	return clients;}
 //update user name of customer
-
 @Override
 public void updateClient(Client clientnewvalues) {
 	System.out.println("In updateClient" );
 	Client client = em.find(Client.class, clientnewvalues.getId());
+	client.setId(clientnewvalues.getId());
 	client.setUsername(clientnewvalues.getUsername());
+	client.setLastname(clientnewvalues.getLastname());
+	client.setPassword(clientnewvalues.getPassword());
+	client.setImage(clientnewvalues.getImage());
 	System.out.println("Out of updateClient :");
 	
 }
@@ -104,6 +113,7 @@ public void updateClient(Client clientnewvalues) {
 	}
 
 	
+	//timesheet
 	@Override
 	public void affecterPortfolioAClient(int IDCount, int IdClient) {
 		
@@ -202,6 +212,7 @@ public void updateClient(Client clientnewvalues) {
 		return BankAccountIDs;
 	}
 
+	
 
 	
 	

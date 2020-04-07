@@ -13,6 +13,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BankAccount")
 public class BankAccount implements Serializable {
+	public BankAccount(int id, String rib, double montant, String departement) {
+		super();
+		this.id = id;
+		this.rib = rib;
+		this.montant = montant;
+		this.departement = departement;
+		
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IdBankAccount")
@@ -48,6 +57,9 @@ public class BankAccount implements Serializable {
 		this.rib = rib;
 	}
 
+	
+		
+	
 	public String getDepartement() {
 		return departement;
 	}
