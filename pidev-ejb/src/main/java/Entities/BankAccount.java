@@ -30,10 +30,6 @@ public class BankAccount implements Serializable {
 	@ManyToOne
 	Bank Bank;
 	
-	@ManyToOne
-	Bank Bnc;
-	
-	
 	public BankAccount() {}
 
 	public int getId() {
@@ -83,13 +79,7 @@ public class BankAccount implements Serializable {
 	public void setMontant(double montant) {
 		this.montant = montant;
 	}
-
-	public Bank getBnc() {
-		return Bnc;
-	}
-
-	public void setBnc(Bank bnc) {
-		Bnc = bnc;
-	}
+	
+	
 	
 }

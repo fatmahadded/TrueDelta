@@ -1,13 +1,11 @@
 package Entities;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +29,6 @@ public class Bank implements Serializable {
 	private String logo;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="Bank")
-	
 	private Set<BankAccount> BankAccounts;
 
 	public Bank() {}
@@ -82,7 +79,6 @@ public class Bank implements Serializable {
 		this.logo = logo;
 	}
 
-	@Transient
 	public Set<BankAccount> getBankAccounts() {
 		return BankAccounts;
 	}
