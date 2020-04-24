@@ -21,7 +21,7 @@ public class Transaction implements Serializable{
 @GeneratedValue(strategy= GenerationType.IDENTITY)
 @Column(name="IdTransaction")
 private int id; // Clé primaire
-@Column(name="=NameTransaction")
+@Column(name="NameTransaction")
 private double amount;
 
 @ManyToOne

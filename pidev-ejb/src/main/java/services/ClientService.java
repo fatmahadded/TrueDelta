@@ -19,7 +19,7 @@ import interfaces.ClientServiceRemote;
 @LocalBean
 public  class ClientService implements ClientServiceRemote {
 	// imputation-ejb in persistence.xml
-	@PersistenceContext(unitName = "imputation-ejb")
+	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
 	
 	
