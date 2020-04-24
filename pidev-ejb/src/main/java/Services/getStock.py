@@ -6,7 +6,5 @@ symbol = args[1]
 data = yf.Ticker(symbol)
 history = data.history(period='1d', start='2010-1-1', end=datetime.today().strftime('%Y-%m-%d'))
 
-#print(data.recommendations)
-#print(data.options)
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print(history)

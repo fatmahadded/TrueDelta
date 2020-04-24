@@ -8,7 +8,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
@@ -24,25 +27,10 @@ import org.apache.commons.io.IOUtils;
 import Entities.Firm;
 import Entities.HistoricalEntry;
 import Interfaces.IFirmLocalService;
+import utils.FloatUtils;
 
 @Stateless
 public class FirmLocalService implements IFirmLocalService {
-	
-	/*private class CronTask extends TimerTask {
-		
-		
-		public CronTask() {
-		}
-
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-
-		}
-		
-		
-
-	}*/
 	
 	@PersistenceContext
 	EntityManager em;
@@ -162,4 +150,65 @@ public class FirmLocalService implements IFirmLocalService {
 		}
 		
 	}
+
+	@Override
+	public List<HistoricalEntry> getHistory(int limit) {
+		List<HistoricalEntry> list = em.createQuery("select h from HistoricalEntry h", HistoricalEntry.class).setMaxResults(limit).getResultList();
+		return list;
+	}
+	
+	// Resources to estimate the expected return and the risk
+	// https://corporatefinanceinstitute.com/resources/knowledge/trading-investing/expected-return/
+	// https://www.investopedia.com/articles/basics/10/guide-to-calculating-roi.asp
+	// https://www.investopedia.com/terms/r/rateofreturn.asp
+	@Override
+	public Map<String, Double> getExpectedReturnByCompany(String symbol) {
+		try {
+			// Calculating expected return by company
+			Firm firm = em.createQuery("select f from Firm f where f.symbol=:symbol", Firm.class).setParameter("symbol", symbol).getSingleResult();
+			int year;
+			Map<Integer, Double> RoIs = new HashMap<Integer, Double>();
+			for(year = 2010; year<2019; year++) {
+				List<HistoricalEntry> historicalEntries = em.createQuery("select h from HistoricalEntry h where h.firm=:firm and year(h.date)=:year order by h.date", HistoricalEntry.class).setParameter("firm", firm).setParameter("year", year).getResultList();
+				// I'm going to calculate the RoI for one stock (1) from the total volume
+				double initialValue = historicalEntries.get(0).getOpen();
+				double finalValue = historicalEntries.get(historicalEntries.size()-1).getClose();
+				Double returnOnInvestement = ((finalValue-initialValue)*1/initialValue*1)*100;
+				RoIs.put(year, FloatUtils.round(returnOnInvestement, 2));
+			}
+			
+			Map<Double, Integer> probabilities = new HashMap<Double, Integer>();
+			RoIs.forEach((key,value)->{
+				probabilities.compute(value, (k,v)-> v == null ? 1 : v++);
+			});
+			double deviation = FloatUtils.standardDeviation(RoIs.values());
+			double expectedReturn = 0.0;
+			for(Entry<Double, Integer> entry: probabilities.entrySet()) {
+				Double size = new Double(probabilities.size());
+				Double value = new Double(entry.getValue());
+				double newCount = (entry.getKey()*(value/size));
+				expectedReturn = expectedReturn + newCount;
+			}
+			Map<String, Double> result = new HashMap<String, Double>();
+			result.put("Return", FloatUtils.round(expectedReturn,2));
+			result.put("Risk", FloatUtils.round(deviation, 2));
+			return result;
+		}catch(IndexOutOfBoundsException exception) {
+			System.out.println("No History found!");
+		}
+		return null;
+	}
+
+	@Override
+	public Map<Object, Object> getEstimationByCompany() {
+		Map<Object, Object> result = new HashMap<Object, Object>();
+		List<Firm> firms = em.createQuery("select f from Firm f", Firm.class).setMaxResults(10).getResultList();
+		for(Firm firm : firms) {
+			Map<String, Double> estimation = getExpectedReturnByCompany(firm.getSymbol());
+			result.put(firm.getName()+"-"+firm.getSymbol(), estimation);
+		}
+		return result;
+	}
+	
+	
 }

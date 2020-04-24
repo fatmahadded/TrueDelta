@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Local;
 
@@ -13,4 +14,7 @@ public interface IFirmLocalService {
 	public void listMarket();
 	public void fetchHistory();
 	public void addHistoryEntry(HistoricalEntry entry);
+	public List<HistoricalEntry> getHistory(int limit);
+	public Map<String, Double> getExpectedReturnByCompany(String symbol);
+	public Map<Object, Object> getEstimationByCompany();
 }
