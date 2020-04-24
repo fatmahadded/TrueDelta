@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import Entities.HistoricalEntry;
-import Interfaces.IFirmLocalService;
+import interfaces.IFirmLocalService;
 import security.Secure;
 
 @Path("firms")

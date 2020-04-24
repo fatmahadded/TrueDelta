@@ -1,10 +1,10 @@
-package Services;
+package services;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import Entities.User;
-import Interfaces.IUserLocalService;
+import interfaces.IUserLocalService;
 
 public class UserService implements IUserLocalService{
 

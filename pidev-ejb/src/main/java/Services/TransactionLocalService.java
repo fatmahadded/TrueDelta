@@ -1,7 +1,8 @@
-package Services;
+package services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -14,7 +15,7 @@ import javax.persistence.Query;
 
 import Entities.Portfolio;
 import Entities.Transaction;
-import Interfaces.ITransactionLocalService;
+import interfaces.ITransactionLocalService;
 
 @Stateless
 public class TransactionLocalService implements ITransactionLocalService{
@@ -25,7 +26,7 @@ public class TransactionLocalService implements ITransactionLocalService{
 	@Override
 	public int addTransaction(int portfolio_id, Transaction T) {
 		Portfolio p = em.find(Portfolio.class, portfolio_id);
-		p.setTransactions(new ArrayList<Transaction>());
+		p.setTransactions(new HashSet<Transaction>());
 		p.addTransaction(T);
 		T.setPortfolio(p);
 		em.persist(T);

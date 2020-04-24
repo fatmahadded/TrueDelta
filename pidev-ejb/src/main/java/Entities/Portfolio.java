@@ -118,10 +118,6 @@ public class Portfolio implements Serializable{
     public void setTransactions(Set<Transaction> transactions) {
     	Transactions = transactions;
     }
-
-	public void setTransactions(List<Transaction> transactions) {
-		Transactions = transactions;
-	}
 	
 	public void addTransaction(Transaction transaction) {
 		this.Transactions.add(transaction);

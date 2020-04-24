@@ -1,4 +1,4 @@
-package Services;
+package services;
 
 import java.io.BufferedReader;
 
@@ -26,7 +26,7 @@ import org.apache.commons.io.IOUtils;
 
 import Entities.Firm;
 import Entities.HistoricalEntry;
-import Interfaces.IFirmLocalService;
+import interfaces.IFirmLocalService;
 import utils.FloatUtils;
 
 @Stateless
@@ -168,7 +168,7 @@ public class FirmLocalService implements IFirmLocalService {
 			Firm firm = em.createQuery("select f from Firm f where f.symbol=:symbol", Firm.class).setParameter("symbol", symbol).getSingleResult();
 			int year;
 			Map<Integer, Double> RoIs = new HashMap<Integer, Double>();
-			for(year = 2010; year<2019; year++) {
+			for(year = 2010; year<2020; year++) {
 				List<HistoricalEntry> historicalEntries = em.createQuery("select h from HistoricalEntry h where h.firm=:firm and year(h.date)=:year order by h.date", HistoricalEntry.class).setParameter("firm", firm).setParameter("year", year).getResultList();
 				// I'm going to calculate the RoI for one stock (1) from the total volume
 				double initialValue = historicalEntries.get(0).getOpen();
