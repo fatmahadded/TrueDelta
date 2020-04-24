@@ -22,6 +22,13 @@
 
 	<artifactId>pidev-web</artifactId>
 	<packaging>war</packaging>
+   
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 	<name>pidev: WAR Module</name>
 
@@ -47,13 +54,31 @@
 			<version>20180813</version>
 		</dependency>
 
-		<!-- Dependency on the EJB module so we can use it's services if needed -->
-		<dependency>
-			<groupId>tn.esprit</groupId>
-			<artifactId>pidev-ejb</artifactId>
-			<type>ejb</type>
-			<scope>provided</scope>
-		</dependency>
+      <!-- Dependency on the EJB module so we can use it's services if needed -->
+      <dependency>
+         <groupId>tn.esprit</groupId>
+         <artifactId>pidev-ejb</artifactId>
+         <type>ejb</type>
+         <scope>provided</scope>
+      </dependency>
+ <!-- Dependency adminface -->     
+        <dependency>
+            <groupId>com.github.adminfaces</groupId>
+            <artifactId>admin-theme</artifactId>
+            <version>1.0.0</version>
+        <!--<classifier>dev</classifier> uncompressed theme.css-->
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>2.1</version>
+        </dependency>
 
 		<!-- Import the JAX-RS API, we use provided scope as the API is included 
 			in JBoss WildFly -->
@@ -78,14 +103,13 @@
 			<artifactId>jboss-jsf-api_2.2_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Import the JPA API, we use provided scope as the API is included in 
-			JBoss WildFly -->
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        
+      <!-- Import the JPA API, we use provided scope as the API is included in JBoss WildFly -->
+      <dependency>
+         <groupId>org.hibernate.javax.persistence</groupId>
+         <artifactId>hibernate-jpa-2.1-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
 		<!-- JSR-303 (Bean Validation) Implementation -->
 		<!-- Provides portable constraints such as @Email -->

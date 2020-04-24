@@ -54,5 +54,4 @@ public class Transaction implements Serializable {
 	public void setPortfolio(Portfolio portfolio) {
 		Portfolio = portfolio;
 	}
-
 }

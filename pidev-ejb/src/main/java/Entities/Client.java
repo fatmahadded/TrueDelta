@@ -6,37 +6,32 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "Client")
 public class Client implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IdClient")
-	private int id; // Clé primaire
-	@Column(name = "Username")
-	private String username;
-	@Column(name = "Lastname")
-	private String lastname;
-	@Column(name = "Password")
-	private String password;
-	@Column(name = "Image")
-	private String image;
-
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="Client")
-	private Set<Portfolio> Portfolios;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="Clients")
-	private Set<BankAccount> BankAccounts;
 	
 	public Client() {}
-
+	public Client(int id, String username, String lastname, String password, String image) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.lastname = lastname;
+		this.password = password;
+		this.image = image;
+		
+	}
+	// Set<Portfolio> portfolios,
+	//Set<BankAccount> bankAccounts
+//Portfolios = portfolios;
+	//BankAccounts = bankAccounts;
 	public int getId() {
 		return id;
 	}
@@ -93,8 +88,45 @@ public class Client implements Serializable {
 		BankAccounts = bankAccounts;
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "IdClient")
+	private int id; // Clé primaire
+	@Column(name = "Username")
+	private String username;
+	@Column(name = "Lastname")
+	private String lastname;
+	@Column(name = "Password")
+	private String password;
+	@Column(name = "Image")
+	private String image;
+
+	
+	@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
+	            fetch=FetchType.EAGER)
+	private Set<Portfolio> Portfolios;
 	
 	
+	@OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
+
+	private Set<BankAccount> BankAccounts;
+	
+	
+
+	
+
+	public void addPortfolio(Portfolio portfolio){
+		portfolio.setClient(this);
+		this.Portfolios.add(portfolio);
+	}
+
+	public void addBankAccount(BankAccount ba){
+		ba.setClients(this);
+		this.BankAccounts.add(ba);
+	}
+
+
+
 	
 	
 }
