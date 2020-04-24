@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import Entities.User;
-import Interfaces.IUserLocalService;
+import interfaces.IUserLocalService;
 import security.Token;
 
 @RequestScoped

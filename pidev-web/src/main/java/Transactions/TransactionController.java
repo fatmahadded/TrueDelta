@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import Entities.Transaction;
-import Interfaces.ITransactionLocalService;
+import interfaces.ITransactionLocalService;
 import Transactions.ViewModels.AddTransactionResponse;
 import Transactions.ViewModels.GetTransactionResponse;
 import Transactions.ViewModels.GetTransactionsResponse;
