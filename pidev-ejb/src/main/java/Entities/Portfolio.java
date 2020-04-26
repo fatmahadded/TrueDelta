@@ -20,14 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table( name= "Portfolio")
 public class Portfolio implements Serializable{
-    public Portfolio(int id, int gain, int risk, int amount) {
-    		super();
-    		this.id = id;
-    		this.gain = gain;
-    		this.risk = risk;
-    		this.amount = amount;
-    		
-    	}
+    
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="IDCount")
@@ -58,6 +51,16 @@ public class Portfolio implements Serializable{
     private Set<Transaction> Transactions;
     
     public Portfolio() {}
+    
+    public Portfolio(int id, int gain, int risk, int amount) {
+		super();
+		this.id = id;
+		this.gain = gain;
+		this.risk = risk;
+		this.amount = amount;
+		
+	}
+    
     public int getId() {
     	return id;
     }

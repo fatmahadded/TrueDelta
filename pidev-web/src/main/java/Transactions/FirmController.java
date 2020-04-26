@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response.Status;
 
 import Entities.HistoricalEntry;
 import interfaces.IFirmLocalService;
-import security.Secure;
 
 @Path("firms")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -30,7 +29,6 @@ public class FirmController {
 	
 	@GET
 	@Path("load")
-	@Secure
 	@RolesAllowed("Admin")
 	public Response loadFirms() {
 		service.fetchFirms();
