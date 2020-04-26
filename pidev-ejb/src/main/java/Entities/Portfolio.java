@@ -15,18 +15,16 @@ import javax.persistence.Table;
 @Entity
 @Table( name= "Portfolio")
 public class Portfolio implements Serializable{
-public Portfolio(int id, int gain, int risk, int amount) {
-		super();
-		this.id = id;
-		this.gain = gain;
-		this.risk = risk;
-		this.amount = amount;
-		
-	}
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 @Id
 @GeneratedValue(strategy= GenerationType.IDENTITY)
 @Column(name="IDCount")
-private int id; // Clé primaire
+private int idcount; // Clé primaire
 @Column(name="GainCount")
 private int gain; 
 @Column(name="RiskCount")
@@ -52,29 +50,29 @@ Client Client;
 @OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolio")
 private Set<Transaction> Transactions;
 
-public Portfolio() {}
-public int getId() {
-	return id;
+
+public int getIDCount() {
+	return idcount;
 }
-public void setId(int id) {
-	this.id = id;
+public void setIDCount(int idcount) {
+	this.idcount = idcount;
 }
-public int getGain() {
+public int getGainCount() {
 	return gain;
 }
-public void setGain(int gain) {
+public void setGainCount(int gain) {
 	this.gain = gain;
 }
-public int getRisk() {
+public int getRiskCount() {
 	return risk;
 }
-public void setRisk(int risk) {
+public void setRiskCount(int risk) {
 	this.risk = risk;
 }
-public int getAmount() {
+public int getAmountCount() {
 	return amount;
 }
-public void setAmount(int amount) {
+public void setAmountCount(int amount) {
 	this.amount = amount;
 }
 public Conflict getConflict() {
@@ -114,6 +112,14 @@ public void setTransactions(Set<Transaction> transactions) {
 	Transactions = transactions;
 }
 
-
+public Portfolio() {}
+public Portfolio(int idcount, int gain, int risk, int amount) {
+	super();
+	this.idcount = idcount;
+	this.gain = gain;
+	this.risk = risk;
+	this.amount = amount;
+	
+}
 
 }

@@ -90,6 +90,11 @@
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
+      <dependency>
+			<groupId>com.sendgrid</groupId>
+			<artifactId>sendgrid-java</artifactId>
+			<version>4.4.6</version>
+		</dependency>
       
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
