@@ -17,18 +17,18 @@ import javax.persistence.Table;
 @Entity
 @Table( name= "Feedback")
 public class Feedback implements Serializable{
+
 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 @Id
 @GeneratedValue(strategy= GenerationType.IDENTITY)
 @Column(name="IdFeed")
 private int idfeed; // Clé primaire
 @Column(name="MessageFeed")
 private String message;
-@Column(name="ScoreFeed")
+@Column(name="Score")
 private int score;
 @Column(name="date_of_emssion")
 LocalDateTime dateOfEmission;
