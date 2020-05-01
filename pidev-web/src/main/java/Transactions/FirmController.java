@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response.Status;
 
 import Entities.Asset;
 import interfaces.IFirmLocalService;
-import security.Secure;
 
 @Path("firms")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -30,7 +29,7 @@ public class FirmController {
 	
 	@GET
 	@Path("load")
-
+ 
 	public Response loadFirms() {
 		service.fetchFirms();
 		return Response.status(Status.OK).build();

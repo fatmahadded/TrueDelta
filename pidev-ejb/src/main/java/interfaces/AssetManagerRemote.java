@@ -15,5 +15,6 @@ public interface AssetManagerRemote {
 	public List<AssetManager>GetAllAssetManagerByEtat();
 	public void updateEtatAssetManager(int idAssetManager);
 	public Portfolio GetPortfolio(int idPortfolio );
-
+	//Calcul P-value
+		public float CalculDuPvalueAuCoursDelajournée(int idAsset , int  idTrans );
 }

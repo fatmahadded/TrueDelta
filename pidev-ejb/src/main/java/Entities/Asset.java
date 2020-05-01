@@ -49,7 +49,10 @@ public class Asset implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	private Type type ;
-
+	
+	@ManyToOne
+	private Transaction transaction;
+	
 	@ManyToOne
 	private Firm firm;
 	

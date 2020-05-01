@@ -17,27 +17,44 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Client")
 public class Client implements Serializable {
-	
-	public Client() {}
-	public Client(int id, String username, String lastname, String password, String image) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.lastname = lastname;
-		this.password = password;
-		this.image = image;
-		
-	}
-	// Set<Portfolio> portfolios,
-	//Set<BankAccount> bankAccounts
-//Portfolios = portfolios;
-	//BankAccounts = bankAccounts;
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "IdClient")
+	private int idclient; // Clé primaire
+	@Column(name = "Username")
+	private String username;
+    @Column(name = "Firstname")
+	private String firstname;
+	@Column(name = "Lastname")
+	private String lastname;
+	@Column(name = "Password")
+	private String password;
+	@Column(name = "Image")
+	private String image;
+	
+	@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
+            fetch=FetchType.EAGER)
+            private Set<Portfolio> Portfolios;
+
+
+    @OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
+            private Set<BankAccount> BankAccounts;
+	
+	
+	public int getIdClient() {
+		return idclient ;
+	}
+	public void setIdClient( int idclient) {
+		this.idclient = idclient;
 	}
 
 	public String getUsername() {
@@ -48,6 +65,16 @@ public class Client implements Serializable {
 		this.username = username;
 	}
 
+	
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	
+	
 	public String getLastname() {
 		return lastname;
 	}
@@ -87,33 +114,15 @@ public class Client implements Serializable {
 	public void setBankAccounts(Set<BankAccount> bankAccounts) {
 		BankAccounts = bankAccounts;
 	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IdClient")
-	private int id; // Clé primaire
-	@Column(name = "Username")
-	private String username;
-	@Column(name = "Lastname")
-	private String lastname;
-	@Column(name = "Password")
-	private String password;
-	@Column(name = "Image")
-	private String image;
-
-	
-	@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
-	            fetch=FetchType.EAGER)
-	private Set<Portfolio> Portfolios;
-	
-	
-	@OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
-
-	private Set<BankAccount> BankAccounts;
 	
 	
 
-	
+	@Override
+	public String toString() {
+		return "Client [idClient=" + idclient + ", Username=" + username + ", Lastname=" + lastname+ ", Firstname" + firstname +
+				 ", Password=" + password + ", Image=" + image +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
+	}
+
 
 	public void addPortfolio(Portfolio portfolio){
 		portfolio.setClient(this);
@@ -126,7 +135,20 @@ public class Client implements Serializable {
 	}
 
 
-
+	//constructeur
+	public Client() {}
+	public Client( String username, String firstname, String lastname, String password, String image,Set<Portfolio> portfolios,Set<BankAccount> bankAccounts) {
+		super();
+		
+		this.username = username;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.password = password;
+		this.image = image;
+		Portfolios = portfolios;
+		BankAccounts= bankAccounts;
+		
+	}
 	
 	
 }

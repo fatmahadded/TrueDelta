@@ -13,9 +13,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BankAccount")
 public class BankAccount implements Serializable {
-	public BankAccount(int id, String rib, double montant, String departement) {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BankAccount(int idbankaccount, String rib, double montant, String departement) {
 		super();
-		this.id = id;
+		this.idbankaccount= idbankaccount;
 		this.rib = rib;
 		this.montant = montant;
 		this.departement = departement;
@@ -25,7 +30,7 @@ public class BankAccount implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IdBankAccount")
-	private int id; // Clé primaire
+	private int idbankaccount; // Clé primaire
 	@Column(name = "RIB")
 	private String rib;
 	@Column(name = "Montant")
@@ -45,12 +50,12 @@ public class BankAccount implements Serializable {
 	
 	public BankAccount() {}
 
-	public int getId() {
-		return id;
+	public int getIdBankAccount() {
+		return idbankaccount;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdBankAccount(int idbankaccount) {
+		this.idbankaccount = idbankaccount;
 	}
 
 	public String getRib() {

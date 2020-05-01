@@ -13,6 +13,8 @@ import Entities.AssetManager;
 import Entities.Client;
 import Entities.Portfolio;
 import interfaces.AssetManagerRemote;
+import Entities.Asset;
+import Entities.Transaction;
 
 @Stateless
 @LocalBean
@@ -24,6 +26,7 @@ public class AssetManagerService implements AssetManagerRemote {
 		System.out.println(" In addAssetManager: ");
 		em.persist(assetmanager);
 		System.out.println ("Out of addAssetManager "+assetmanager.getIdManager());
+		/*
 		try {
 			EmailService email = new EmailService();
 			email.sendEmail("ahmed.jaiem@esprit.tn", "test", "ahmed.jaiem@esprit.tn", "Get shwity");
@@ -31,6 +34,7 @@ public class AssetManagerService implements AssetManagerRemote {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		return assetmanager.getIdManager();
 	}
 
@@ -81,6 +85,28 @@ public class AssetManagerService implements AssetManagerRemote {
 	}
 	
 
+
+	
+	
+	
+	
+	
+	//Calcul P-value
+	public float CalculDuPvalueAuCoursDelajournée(int idAsset , int  idTrans ) {
+		Asset asset = em.find(Asset.class, idAsset);
+		Transaction trans = em.find(Transaction.class, idTrans);
+
+		float A = (float) ((asset.getClose() - asset.getOpen()) * (trans.getQuantite()));
+		//asset.setValue(A);
+		return A;
+	
+	
+	
+	
+	
+	
+
+}
 
 	
 }
