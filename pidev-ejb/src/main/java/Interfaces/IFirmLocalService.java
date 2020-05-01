@@ -6,15 +6,15 @@ import java.util.Map;
 import javax.ejb.Local;
 
 import Entities.Firm;
-import Entities.HistoricalEntry;
+import Entities.Asset;
 
 @Local
 public interface IFirmLocalService {
 	public void fetchFirms();
 	public void listMarket();
 	public void fetchHistory();
-	public void addHistoryEntry(HistoricalEntry entry);
-	public List<HistoricalEntry> getHistory(int limit);
+	public void addHistoryEntry(Asset entry);
+	public List<Asset> getHistory(int limit);
 	public Map<String, Double> getExpectedReturnByCompany(String symbol);
 	public Map<Object, Object> getEstimationByCompany();
 }

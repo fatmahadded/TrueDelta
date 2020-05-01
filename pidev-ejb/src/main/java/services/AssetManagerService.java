@@ -71,7 +71,14 @@ public class AssetManagerService implements AssetManagerRemote {
 		AssetManager assetmanager = em.find(AssetManager.class, idAssetManager);
 		assetmanager.setEtat(1);
 	}
-
+	
+	@Override
+    public Portfolio GetPortfolio(int idPortfolio ) {
+		
+		Portfolio portfolio = em.find(Portfolio.class, idPortfolio);
+		return portfolio;
+		
+	}
 	
 
 

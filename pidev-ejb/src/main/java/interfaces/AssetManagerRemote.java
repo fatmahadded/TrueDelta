@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import Entities.AssetManager;
+import Entities.*;
 
 @Remote
 public interface AssetManagerRemote {
@@ -14,6 +14,6 @@ public interface AssetManagerRemote {
 	public AssetManager getAssetManagerById(int IdAssetManager);
 	public List<AssetManager>GetAllAssetManagerByEtat();
 	public void updateEtatAssetManager(int idAssetManager);
-	
+	public Portfolio GetPortfolio(int idPortfolio );
 
 }

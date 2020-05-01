@@ -28,7 +28,7 @@ public class Firm implements Serializable{
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "firm")
-	private List<HistoricalEntry> historicalEntries;
+	private List<Asset> historicalEntries;
 	
 	public Firm() {
 		super();
