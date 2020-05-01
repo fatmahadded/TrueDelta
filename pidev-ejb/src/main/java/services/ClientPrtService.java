@@ -48,7 +48,7 @@ public class ClientPrtService implements ClientPrtServiceRemote {
 		System.out.println(" In addClient: ");
 		em.persist(client);
 		System.out.println (" Out Of addClient "+client.getIdClient());
-		
+		/*
 		try {
 			EmailService email = new EmailService();
 			email.sendEmail("yassine.chatbri@esprit.tn", "test", "yassine.chatbri@esprit.tn", "Get shwity");
@@ -56,7 +56,7 @@ public class ClientPrtService implements ClientPrtServiceRemote {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+*/
 		return client.getIdClient();
 	}
 
@@ -106,8 +106,8 @@ public class ClientPrtService implements ClientPrtServiceRemote {
 	public int addPortfolio(Portfolio portfolio) {
 		System.out.println(" addPortfolio: ");
 		em.persist(portfolio);
-		System.out.println ("addPortfolio "+portfolio.getIDCount());
-		return portfolio.getIDCount();
+		System.out.println ("addPortfolio "+portfolio.getId());
+		return portfolio.getId();
 		}
 
 	@Override
@@ -120,10 +120,10 @@ public class ClientPrtService implements ClientPrtServiceRemote {
 	@Override
 	public void updatePortfolio(Portfolio portfolionewvalues) {
 		System.out.println("In updatePortfolio" );
-		Portfolio portfolio = em.find(Portfolio.class, portfolionewvalues.getIDCount());
-		portfolio.setAmountCount(portfolionewvalues.getAmountCount());
-		portfolio.setGainCount(portfolionewvalues.getGainCount());
-		portfolio.setRiskCount(portfolionewvalues.getRiskCount());
+		Portfolio portfolio = em.find(Portfolio.class, portfolionewvalues.getId());
+		portfolio.setAmount(portfolionewvalues.getAmount());
+		portfolio.setGain(portfolionewvalues.getGain());
+		portfolio.setRisk(portfolionewvalues.getRisk());
 
 		System.out.println("Out of updatePortfolio :");
 	}
@@ -176,7 +176,7 @@ public class ClientPrtService implements ClientPrtServiceRemote {
 		Client clientManagedEntity = em.find(Client.class, idclient);
 		List<Integer> PortfoliosIDs = new ArrayList<>();
 		for(Portfolio portfolio : clientManagedEntity.getPortfolios()){
-			PortfoliosIDs.add(portfolio.getIDCount());
+			PortfoliosIDs.add(portfolio.getId());
 		}
 		
 		return PortfoliosIDs;
