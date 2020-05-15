@@ -38,13 +38,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<browser>chrome</browser>
-		<asciidoctorj.pdf.version>1.5.0-alpha.16</asciidoctorj.pdf.version>
-		<asciidoctorj.version>1.5.6</asciidoctorj.version>
-		<jruby.version>9.1.13.0</jruby.version>
-		<primefaces.version>7.0</primefaces.version>
+		<primefaces.version>6.1</primefaces.version>
 		<chromedriver.version>80.0.3987.16</chromedriver.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -130,6 +126,12 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${primefaces.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.chartistjsf</groupId>
+			<artifactId>ChartistJSF</artifactId>
+			<version>3.0</version>
 		</dependency>
 	</dependencies>
 
