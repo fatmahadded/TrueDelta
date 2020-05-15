@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import Entities.HistoricalEntry;
+import Entities.Asset;
 import interfaces.IFirmLocalService;
 
 @Path("firms")
@@ -29,7 +29,7 @@ public class FirmController {
 	
 	@GET
 	@Path("load")
-	@RolesAllowed("Admin")
+ 
 	public Response loadFirms() {
 		service.fetchFirms();
 		return Response.status(Status.OK).build();
@@ -45,7 +45,7 @@ public class FirmController {
 	@GET
 	@Path("all/{limit}")
 	public Response getAllHistory(@PathParam("limit") int limit) {
-		List<HistoricalEntry> history = service.getHistory(limit);
+		List<Asset> history = service.getHistory(limit);
 		return Response.status(Status.OK).entity(history).build();
 	}
 	

@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +31,7 @@ public class AssetManager implements Serializable {
 	private Date dateSortie;
 	private String cv;
 	private int etat;
-	
+
 
 
 	public String getCv() {
@@ -125,15 +127,19 @@ public class AssetManager implements Serializable {
 	}
 
 
+	
+
+
+	public AssetManager() {}
+
+
+
 	@Override
 	public String toString() {
 		return "AssetManager [idManager=" + idManager + ", username=" + username + ", lastname=" + lastname
 				+ ", password=" + password + ", image=" + image + ", dateAjout=" + dateAjout + ", dateSortie="
 				+ dateSortie + ", cv=" + cv + ", etat=" + etat + ", Portfolios=" + Portfolios + "]";
 	}
-
-
-	public AssetManager() {}
 
 
 	public AssetManager(int idManager, String username, String lastname, String password, String image, Date dateAjout,
@@ -148,8 +154,12 @@ public class AssetManager implements Serializable {
 		this.dateSortie = dateSortie;
 		this.cv = cv;
 		this.etat = etat;
+	
 		Portfolios = portfolios;
 	}
+
+
+
 
 	
 	

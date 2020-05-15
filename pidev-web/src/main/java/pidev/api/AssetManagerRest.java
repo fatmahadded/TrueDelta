@@ -49,6 +49,12 @@ public class AssetManagerRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAssetManagerByEtat() {
 		return Response.ok(Am.GetAllAssetManagerByEtat()).build();
+		
 
 	}
-}
+	@GET
+	@Path("CalculPValue/{idAsset}/{idTrans}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response CalculDuPvalueAuCoursDelajournée(@PathParam("idAsset") int idAsset,@PathParam("idTrans") int idTrans) {
+		return Response.ok(Am.CalculDuPvalueAuCoursDelajournée(idAsset,idTrans)).build();
+}            }
