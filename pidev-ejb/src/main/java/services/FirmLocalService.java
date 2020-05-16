@@ -1,3 +1,4 @@
+
 package services;
 
 import java.io.BufferedReader;
@@ -25,7 +26,7 @@ import javax.persistence.TypedQuery;
 import org.apache.commons.io.IOUtils;
 
 import Entities.Firm;
-import Entities.HistoricalEntry;
+import Entities.Asset;
 import interfaces.IFirmLocalService;
 import utils.FloatUtils;
 
@@ -111,7 +112,7 @@ public class FirmLocalService implements IFirmLocalService {
 	}
 
 	@Override
-	public void addHistoryEntry(HistoricalEntry entry) {
+	public void addHistoryEntry(Asset entry) {
 	}
 	
 	/**
@@ -122,8 +123,8 @@ public class FirmLocalService implements IFirmLocalService {
 			System.out.println(firm.getSymbol());
 			try {
 				ProcessBuilder pb = new ProcessBuilder(
-						"C:\\Users\\RedJ\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
-						"C:\\Users\\RedJ\\Documents\\workspace\\pidev\\pidev-ejb\\src\\main\\java\\Services\\getStock.py",
+						"C:\\Users\\jaiem\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+						"C:\\Users\\jaiem\\Documents\\pidev-jee\\pidev-ejb\\src\\main\\java\\services\\getStock.py",
 						firm.getSymbol());
 				Process p = pb.start();
 
@@ -136,7 +137,7 @@ public class FirmLocalService implements IFirmLocalService {
 						String[] data = s.replaceAll("\\s{2,}", ",").split(",");
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 						Date date = format.parse(data[0]);
-						HistoricalEntry newEntry = new HistoricalEntry(date, Double.parseDouble(data[1]),
+						Asset newEntry = new Asset(date, Double.parseDouble(data[1]),
 								Double.parseDouble(data[2]), Double.parseDouble(data[3]), Double.parseDouble(data[4]),
 								Long.parseLong(data[5]), Double.parseDouble(data[6]), Double.parseDouble(data[7]));
 						newEntry.setFirm(firm);
@@ -152,8 +153,8 @@ public class FirmLocalService implements IFirmLocalService {
 	}
 
 	@Override
-	public List<HistoricalEntry> getHistory(int limit) {
-		List<HistoricalEntry> list = em.createQuery("select h from HistoricalEntry h", HistoricalEntry.class).setMaxResults(limit).getResultList();
+	public List<Asset> getHistory(int limit) {
+		List<Asset> list = em.createQuery("select h from Asset h", Asset.class).setMaxResults(limit).getResultList();
 		return list;
 	}
 	
@@ -169,7 +170,7 @@ public class FirmLocalService implements IFirmLocalService {
 			int year;
 			Map<Integer, Double> RoIs = new HashMap<Integer, Double>();
 			for(year = 2010; year<2020; year++) {
-				List<HistoricalEntry> historicalEntries = em.createQuery("select h from HistoricalEntry h where h.firm=:firm and year(h.date)=:year order by h.date", HistoricalEntry.class).setParameter("firm", firm).setParameter("year", year).getResultList();
+				List<Asset> historicalEntries = em.createQuery("select h from HistoricalEntry h where h.firm=:firm and year(h.date)=:year order by h.date", Asset.class).setParameter("firm", firm).setParameter("year", year).getResultList();
 				// I'm going to calculate the RoI for one stock (1) from the total volume
 				double initialValue = historicalEntries.get(0).getOpen();
 				double finalValue = historicalEntries.get(historicalEntries.size()-1).getClose();
@@ -218,14 +219,14 @@ public class FirmLocalService implements IFirmLocalService {
 
 	@Override
 	public int getRecordsCount() {
-		List<HistoricalEntry> records = em.createQuery("select r from HistoricalEntry r", HistoricalEntry.class).getResultList();
+		List<Asset> records = em.createQuery("select r from HistoricalEntry r", Asset.class).getResultList();
 		return records.size();
 	}
 
 	@Override
-	public List<HistoricalEntry> getHistoryByCompany(int company_id) {
+	public List<Asset> getHistoryByCompany(int company_id) {
 		Firm firm = em.createQuery("select f from Firm f where id=:id", Firm.class).setParameter("id", company_id).getSingleResult();
-		List<HistoricalEntry> records = em.createQuery("select r from HistoricalEntry r where r.firm=:firm", HistoricalEntry.class).setParameter("firm", firm).setMaxResults(100).getResultList();
+		List<Asset> records = em.createQuery("select r from HistoricalEntry r where r.firm=:firm", Asset.class).setParameter("firm", firm).setMaxResults(100).getResultList();
 		return records;
 	}
 	

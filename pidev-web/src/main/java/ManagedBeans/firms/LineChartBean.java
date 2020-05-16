@@ -10,7 +10,7 @@ import org.chartistjsf.model.chart.AspectRatio;
 import org.chartistjsf.model.chart.LineChartModel;
 import org.chartistjsf.model.chart.LineChartSeries;
 
-import Entities.HistoricalEntry;
+import Entities.Asset;
 import interfaces.IFirmLocalService;
 
 @ManagedBean
@@ -21,7 +21,7 @@ public class LineChartBean implements Serializable {
 	IFirmLocalService firmService;
 
 	private LineChartModel lineChartModel;
-	private List<HistoricalEntry> records;
+	private List<Asset> records;
 	public LineChartBean() {
 		super();
 	}
@@ -33,7 +33,7 @@ public class LineChartBean implements Serializable {
 		
 		lineChartModel.setAspectRatio(AspectRatio.GOLDEN_SECTION);
 		int i = 0;
-		for (HistoricalEntry historicalEntry : records) {
+		for (Asset historicalEntry : records) {
 			if(i == 0) {
 				lineChartModel.addLabel(historicalEntry.getFirm().getName());
 				i++;

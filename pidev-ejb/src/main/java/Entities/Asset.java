@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +17,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="HistoricalEntity")
-public class HistoricalEntry implements Serializable{
+public class Asset implements Serializable{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -49,15 +51,21 @@ public class HistoricalEntry implements Serializable{
 	
 	@Column(name = "StockSplits")
 	private double stock_splits;
-
+	
+	@Enumerated(EnumType.STRING)
+	private Type type ;
+	
+	@ManyToOne
+	private Transaction transaction;
+	
 	@ManyToOne
 	private Firm firm;
 	
-	public HistoricalEntry() {
+	public Asset() {
 		super();
 	}
 
-	public HistoricalEntry(Date date, double open, double high, double low, double close, long volume, double dividends,
+	public Asset(Date date, double open, double high, double low, double close, long volume, double dividends,
 			double stock_splits) {
 		super();
 		this.date = date;
