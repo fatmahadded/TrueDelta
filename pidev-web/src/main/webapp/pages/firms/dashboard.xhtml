@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ct="http://www.chartistjsf.org/charts"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+		<h:panelGrid layout="grid" columns="2" style="width:100%">
+			<h:panelGroup style="text-align:right;float:right;" layout="block" styleClass="card">
+				<h:graphicImage
+					style="width:50px;height:50px;display:inline-flex;vertical-align:middle;"
+					value="#{resource['images/firms.png']}" />
+
+				<h:outputText styleClass="stat"
+					value="#{dashboardBean.nbFirms/1000!=0?''.concat(dashboardBean.nbFirms/1000).concat('k'):dashboardBean.nbFirms}">
+				</h:outputText>
+				<h:outputText styleClass="label" value="Firms" />
+
+				<h:form id="fetchFirms">
+					<h:commandLink action="#{dashboardBean.fetchFirms()}">
+						<h:graphicImage styleClass="actionBtn"
+							value="#{resource['images/refresh.png']}" />
+					</h:commandLink>
+				</h:form>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="card">
+				<h:graphicImage style="width:50px;height:50px;"
+					value="#{resource['images/records.png']}" />
+
+				<h:outputText styleClass="stat"
+					value="#{dashboardBean.records/1000!=0?''.concat(dashboardBean.records/1000).concat('k'):dashboardBean.records}" />
+				<h:outputText styleClass="label" value="Records" />
+				<h:form id="fetchRecords">
+					<h:commandLink action="#{dashboardBean.fetchRecords()}">
+						<h:graphicImage styleClass="actionBtn"
+							value="#{resource['images/refresh.png']}" />
+					</h:commandLink>
+				</h:form>
+			</h:panelGroup>
+		</h:panelGrid>
+		<ct:chart type="line" model="#{lineChartBean.lineChartModel}"/>
+	</ui:define>
+
+</ui:composition>

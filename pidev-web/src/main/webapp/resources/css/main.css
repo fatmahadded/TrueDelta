@@ -9596,9 +9596,12 @@ a, button, .btn {
 }
 
 .app-header__logo .logo-src {
-	height: 23px;
-	width: 97px;
 	background: url('#{resource['css/assets/images/logo-inverse.png']}')
+	height: 55px;
+	width: 100px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .app-header__menu, .app-header__mobile-menu {

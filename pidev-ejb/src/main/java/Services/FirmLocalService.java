@@ -209,6 +209,25 @@ public class FirmLocalService implements IFirmLocalService {
 		}
 		return result;
 	}
+
+	@Override
+	public int getFirmCount() {
+		List<Firm> firms = em.createQuery("select f from Firm f", Firm.class).getResultList();
+		return firms.size();
+	}
+
+	@Override
+	public int getRecordsCount() {
+		List<HistoricalEntry> records = em.createQuery("select r from HistoricalEntry r", HistoricalEntry.class).getResultList();
+		return records.size();
+	}
+
+	@Override
+	public List<HistoricalEntry> getHistoryByCompany(int company_id) {
+		Firm firm = em.createQuery("select f from Firm f where id=:id", Firm.class).setParameter("id", company_id).getSingleResult();
+		List<HistoricalEntry> records = em.createQuery("select r from HistoricalEntry r where r.firm=:firm", HistoricalEntry.class).setParameter("firm", firm).setMaxResults(100).getResultList();
+		return records;
+	}
 	
 	
 }
