@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.util.regex.Pattern;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -19,7 +20,7 @@ import interfaces.AdministratorServiceLocal;
 import interfaces.AdministratorServiceRemote;
 
 @Stateless
-
+@LocalBean
 public class AdministratorService implements AdministratorServiceRemote, AdministratorServiceLocal {
 	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
