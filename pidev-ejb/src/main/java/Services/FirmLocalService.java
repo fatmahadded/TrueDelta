@@ -174,7 +174,7 @@ public class FirmLocalService implements IFirmLocalService {
 				// I'm going to calculate the RoI for one stock (1) from the total volume
 				double initialValue = historicalEntries.get(0).getOpen();
 				double finalValue = historicalEntries.get(historicalEntries.size()-1).getClose();
-				Double returnOnInvestement = ((finalValue-initialValue)*1/initialValue*1)*100;
+				Double returnOnInvestement = ((finalValue-initialValue)*1/initialValue*1)*100;//*1benesba lel 1 stock
 				RoIs.put(year, FloatUtils.round(returnOnInvestement, 2));
 			}
 			
