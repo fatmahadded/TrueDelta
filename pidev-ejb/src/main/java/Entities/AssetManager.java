@@ -29,8 +29,7 @@ public class AssetManager implements Serializable {
 	private Date dateSortie;
 	private String cv;
 	private int etat;
-	
-
+   
 
 	public String getCv() {
 		return cv;

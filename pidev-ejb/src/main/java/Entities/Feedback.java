@@ -1,8 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +17,7 @@ import javax.persistence.Table;
 @Table( name= "Feedback")
 public class Feedback implements Serializable{
 
+
 /**
 	 * 
 	 */
@@ -25,34 +25,27 @@ public class Feedback implements Serializable{
 @Id
 @GeneratedValue(strategy= GenerationType.IDENTITY)
 @Column(name="IdFeed")
-private int idfeed; // Clé primaire
+private int id; // Clé primaire
 @Column(name="MessageFeed")
 private String message;
-@Column(name="Score")
+//raiting
+@Column(name="Score_Given_To_AM")
 private int score;
-@Column(name="date_of_emssion")
-LocalDateTime dateOfEmission;
+
+
 
 @ManyToOne
 Portfolio Portfolios;
-//sender
-@ManyToOne
-@JoinColumn(name="sender_id")
-Client sender;
-//reciever
-@ManyToOne
-@JoinColumn(name="reciver_id")
-AssetManager reciever ;
 
 
-public Feedback() { super();}
+public Feedback() {	}
 
-public int getIdFeed() {
-	return idfeed;
+public int getId() {
+	return id;
 }
 
-public void setIdFeed( int idfeed) {
-	this.idfeed = idfeed;
+public void setId( int id) {
+	this.id = id;
 }
 
 public String getMessage() {
@@ -63,15 +56,6 @@ public void setMessage(String message) {
 	this.message = message;
 }
 
-
-public LocalDateTime getDateOfEmission() {
-	return dateOfEmission;
-}
-
-public void setDateOfEmission(LocalDateTime dateOfEmission) {
-	this.dateOfEmission = dateOfEmission;
-}
-
 public int getScore() {
 	return score;
 }
@@ -79,21 +63,7 @@ public int getScore() {
 public void setScore(int score) {
 	this.score = score;
 }
-public Client getSender() {
-	return sender;
-}
 
-public void setSender(Client sender) {
-	this.sender = sender;
-}
-
-public AssetManager getReciever() {
-	return reciever;
-}
-
-public void setReciever(AssetManager reciever) {
-	this.reciever = reciever;
-}
 
 public Portfolio getPortfolios() {
 	return Portfolios;

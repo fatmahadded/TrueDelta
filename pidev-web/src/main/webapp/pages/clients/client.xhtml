@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+	
+	<ui:define name="content">
+    <h:panelGroup>
+			<h:form>
+				<h:outputText value="Vous etes le bienvenu #{loginBean.client.lastname}  #{loginBean.client.firstname}" />
+				//<h:commandLink value="Your Contract" action="#{loginBean.doLogout()}" />
+				<br />	| 
+				<h:commandLink value="Déconnexion" action="#{loginBean.doLogout()}" />
+				<br />
+				<br />
+				<b>Your informations</b>
+				<h:panelGroup columns="2">
+					<h:form>
+						<table border="1">
+							<tr>
+								<td><b>Last Name</b></td>
+								<td><h:outputText value="#{loginBean.client.lastname}"></h:outputText></td>
+							</tr>
+							<tr>
+								<td><b>First name</b></td>
+								<td><h:outputText value="#{loginBean.client.firstname}"></h:outputText></td>
+							</tr>
+							<tr>
+								<td><b>Picture</b></td>
+								<td><h:outputText value="#{loginBean.client.image}"></h:outputText></td>
+							</tr>
+						</table>
+					</h:form>
+				</h:panelGroup>
+			</h:form>
+		</h:panelGroup>
+		<br />
+		<b>Informations about your bank account</b>
+		<h:panelGroup columns="2">
+			<h:form>
+				<table border="1">
+					<tr>
+						<td><b>RIB</b></td>
+						<td><h:outputText value="#{loginBean.client.ba.rib}"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><b>Amount</b></td>
+						<td><h:outputText
+								value="#{loginBean.client.ba.montant}"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><b>Department</b></td>
+						<td><h:outputText
+								value="#{loginBean.client.ba.departement}">
+								<h:column>
+							
+							</h:dataTable></td>
+					</tr>
+					<tr>
+						
+				</table>
+			</h:form>
+		</h:panelGroup>
+
+
+	</ui:define>
+
+		
+</ui:composition>
+	

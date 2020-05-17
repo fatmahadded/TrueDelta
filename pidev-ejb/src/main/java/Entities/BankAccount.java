@@ -18,19 +18,31 @@ public class BankAccount implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BankAccount(int idbankaccount, String rib, double montant, String departement) {
-		super();
-		this.idbankaccount= idbankaccount;
+	
+	public BankAccount( String rib, double montant, String departement) {
 		this.rib = rib;
 		this.montant = montant;
 		this.departement = departement;
+		
+	}
+	
+	public BankAccount(int id, String rib, double montant, String departement) {
+       this.id= id;
+		this.rib = rib;
+		this.montant = montant;
+		this.departement = departement;
+		
+	}
+	public BankAccount( int id,double montant) {
+		this.id= id;
+		this.montant = montant;
 		
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IdBankAccount")
-	private int idbankaccount; // Clé primaire
+	private int id; // Clé primaire
 	@Column(name = "RIB")
 	private String rib;
 	@Column(name = "Montant")
@@ -48,14 +60,16 @@ public class BankAccount implements Serializable {
 	Bank Bnc;
 	
 	
-	public BankAccount() {}
+	
+	
+	
 
-	public int getIdBankAccount() {
-		return idbankaccount;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdBankAccount(int idbankaccount) {
-		this.idbankaccount = idbankaccount;
+	public void setIdBankAccount(int id) {
+		this.id= id;
 	}
 
 	public String getRib() {

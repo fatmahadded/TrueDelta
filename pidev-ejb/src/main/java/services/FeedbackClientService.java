@@ -1,79 +1,60 @@
 package services;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 
-import Entities.AssetManager;
-import Entities.Client;
 import Entities.Feedback;
+import Entities.Portfolio;
 import interfaces.FeedbackClient;
 
-@Stateless
-//@LocalBean
 public class FeedbackClientService implements FeedbackClient {
-	//imputation-ejb in persistence.xml
-	@PersistenceContext(unitName = "PiDbDS")
+	@PersistenceContext
 	EntityManager em;
-	
-	
+
 	@Override
-	public Feedback addFeedback(long idFrom, long idTo, String message) {
-		Feedback feedback = new Feedback();
-		feedback.setMessage(message);
-		AssetManager reciever = em.find(AssetManager.class, idTo);
-		Client sender = em.find(Client.class, idFrom);
-		feedback.setSender(sender);
-		feedback.setReciever(reciever);
-		feedback.setDateOfEmission(LocalDateTime.now());
-		em.persist(feedback);
-		em.flush();
-		return em.find(Feedback.class, feedback.getIdFeed());
+	public int addFeedback(int portfolioId, Feedback feed) {
+		Portfolio p = em.find(Portfolio.class, portfolioId);
+		p.setFeedbacks(new HashSet<Feedback>());
+		p.addFeedBack(feed);
+		feed.setPortfolios(p);
+		em.persist(feed);
+		return feed.getId();
+
 	}
 
 	@Override
-	public boolean removeFeedback(long idfeed) {
-		Feedback f = em.find(Feedback.class, idfeed);
-		if (f!=null) {
-			em.remove(f);
-			return true;
-		}
-		return false;
+	public int updateFeedback(Feedback feed) {
+		Feedback oldF = em.find(Feedback.class, feed.getId());
+		Portfolio p = em.find(Portfolio.class, oldF.getPortfolios().getId());
+		feed.setPortfolios(p);
+		em.merge(feed);
+		return feed.getId();
+
 	}
 
 	@Override
-	public Feedback editFeedback(Feedback feedback) {
-		em.merge(feedback);
-		em.flush();
-		return em.find(Feedback.class, feedback.getIdFeed());
+	public Feedback getFeedback(int feedId) {
+		Feedback feed = em.find(Feedback.class, feedId);
+		return feed;
+
 	}
 
 	
 	@Override
-	public Feedback getFeedbackById(long idfeed) {
-		return (Feedback) em.createQuery("SELECT f from Feedback f where f.idfeed = "+idfeed).getSingleResult();
+	public List<Feedback> getPortfolioFeedbacks(int portfolioId) {
+		Query feedbacks = em.createQuery("select f from Feedback f where f.Portfolio.id = :portfolioId").setParameter("portfolio_id",portfolioId);
+		return feedbacks.getResultList();
 
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Feedback> getAll() {
-		return em.createQuery("SELECT f from Feedback f ")
-				.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Feedback> getFeedbackHistoryOfClient(long idclient) {
-		return em.createQuery("SELECT f from Feedback f where f.reciever.id = :id order by f.dateOfEmission DESC")
-				.setParameter("id", idclient).getResultList();
 	}
 
 }

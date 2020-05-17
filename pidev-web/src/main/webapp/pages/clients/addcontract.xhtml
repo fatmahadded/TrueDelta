@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:panelGroup columns="2">
+			<h:form>
+				<table>
+					<tr>
+						<td><h:outputText value="iban"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.date_creation}"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="swift"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.date_end}"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="name"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.commission"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.prime}"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.titre }"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.riskk }"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.type_contract}"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.etat }"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.reponse}"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="logo"></h:outputText></td>
+						<td><h:inputText value="#{addcontract.motcle}"></h:inputText></td>
+					</tr>
+					<tr>
+								<td colspan="2"><h:commandButton value="Ajouter Contract"
+								action="#{addcontract.addContracth()}" /></td>
+								
+					</tr>
+				</table>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
