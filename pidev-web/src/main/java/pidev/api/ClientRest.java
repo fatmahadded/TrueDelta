@@ -1,6 +1,7 @@
 package pidev.api;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,7 +21,7 @@ import interfaces.ClientPrtServiceRemote;
 
 public class ClientRest  {
 
-	@EJB
+	@Inject
 	ClientPrtServiceRemote cp;
 	@Path("/addClient")
 	@POST
