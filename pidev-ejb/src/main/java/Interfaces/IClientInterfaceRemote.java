@@ -4,20 +4,22 @@ import java.util.List;
 
 
 
-
 import Entities.Client;
 
 public interface IClientInterfaceRemote {
 
-	public void addClient(Client client);
-	public void removeClientById(int clientId); 
-	public void updateClient(Client clientnewvalues) ;
+	public Client getClientByEmailAndPassword(String email, String password);
+
+	public void removeClient(int id);
+
+	public void ajouterClient(Client client);
+
+	public void updateClient(Client newClient);
+
+	public Client findClientById(int id);
+
+	public List<Client> getAllClients();
 	
-	public Client getClientById(int clientId);
-	public Client getClientrByUsername(String username); 
-	public Client getUserByUsernameAndPassword(String username, String password) ;
-
-	public List<Client> findAllClients();
-
-	public Client verifyLoginClient(String username, String password);
+	
+	public Client getClientrByEmail(String email);
 }

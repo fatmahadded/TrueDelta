@@ -6,11 +6,14 @@
 	template="/WEB-INF/template/template.xhtml">
 
 	<ui:define name="content">
-
+<section class="content">Hello
+		<i class="pi pi-check" style="font-size: 3em"></i></section>
 
 
 <!-- Partie Ajout d'un client-->
 <h1>Inscription Client</h1>
+
+
 <h:panelGroup columns="2">
 <h:form>
 <table>
@@ -27,7 +30,7 @@
 <tr><td><h:outputText value="Mot de Passe"></h:outputText></td>
 <td><h:inputSecret value="#{addclientBean.password}"></h:inputSecret></td></tr>
 
-<tr><td><h:outputText value="Image"></h:outputText></td>
+<tr><td><h:outputText value="Picture"></h:outputText></td>
 <td><h:inputText value="#{addclientBean.image}"></h:inputText></td></tr>
 
 <tr><td colspan="2"> 
@@ -56,15 +59,11 @@
 
 <h:column><f:facet name="header"><h:outputText value="Picture" /></f:facet>
 <h:outputText value="#{client.image}" /></h:column>
+<h:column><f:facet name="header"><h:outputText value="Action" /></f:facet>
 
-
-
-<h:column>
-<f:facet name="header"><h:outputText value="Action" /></f:facet>
 <h:commandButton action="#{addclientBean.removeClientById(client.id)}" value="Supprimer Client" /> 
 <h:commandButton action="#{addclientBean.displayClient(client)}" value="Afficher " />
 </h:column>
-
 
 
 

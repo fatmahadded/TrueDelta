@@ -32,69 +32,82 @@ public class Contract implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Conract_ID")
-	private int contract_id;
+	private int idcontract;
 	@Column(name = "Date_creation")
 	private Date date_creation;
 	@Column(name = "Date_end")
 	private Date date_end;
-	 //avec ou sans rique
-	@Column(name = "Titre")
-	private String titre;
-    //@Column(name = "Shares_nbr", nullable = false)
-	//private int sharesnbr;
-	//@Column(name = "Bonds_nbr", nullable = false)
-	//private int bondsnbr;
-	@Column(name = "Commission_AM")
+	@Column(name = "Nom_de_l'entreprise_vendeuse")
+	private String nomentr;
+	@Column(name = "Titre_nbr", nullable = false)
+	private int titrenbr;
+    @Column(name = "Commission_AM")
 	private float commission;
 	@Column(name = "Prime_Client")
 	private float prime;
-	@Column(name="Risque_Estimated")
+	@Column(name="Risque_Estimaté_du_titre")
 	private float riskk;
-	 
-	@ElementCollection
-	private List<String> motcle;
-	@Column(name = "Etat")
-	private boolean etat;
-	@Column(name = "Reponse")
-	private String reponse;
-    
+	@Column(name="Montant_Remboursé")
+	private float mnt;
+	@Column(name="Description",nullable = false) 
+	private String description;
 	@Column(name="Type_Contract")
     @Enumerated(EnumType.STRING)
-    private type_contract type_contract;
-    public enum type_contract {Shares, Bonds}
-
+   type_contract type_contract;
+// @ElementCollection
+	//private List<String> motcle;
+	@Column
+	private boolean etat;
+	
+    
+    
     private Integer contractIdToBeUpdated;
     //********
 
 	
 //les relations
-@OneToMany(cascade = CascadeType.ALL, mappedBy = "Contract")
-private Set<Guarantee> Guarantees;
+//@OneToMany(cascade = CascadeType.ALL, mappedBy = "Contract")
+//private Set<Guarantee> Guarantees;
 @ManyToOne
  Client client;
 @ManyToOne
  AssetManager am;
-@ManyToOne
-Ensemble ensemble;
-	
 
-//geters w setters	
-public Contract() {
-	super();}
-	
-public type_contract getType_contract() {
-		return type_contract;
-	}
 
-	public void setType_contract(type_contract type_contract) {
-		this.type_contract = type_contract;
+//constructeur
+public Contract() {}
+public Contract(Date date_creation,Date date_end,String nomentr,int titrenbr,float commission,float prime, float riskk,float mnt,String description,Boolean etat,type_contract type_contract) {
+	    this.date_creation=date_creation;
+	    this.date_end=date_end;
+	      this.nomentr=nomentr;
+	    this.titrenbr=titrenbr;
+	      this.commission=commission;
+		this.prime=prime;
+		this.riskk=riskk;
+		this.type_contract=type_contract;
+		this.mnt=mnt;
+		this.description=description;
+		this.etat=etat;
 	}
-	 public Set<Guarantee> getGuarantees() {
-	    	return Guarantees;
-	    }
-	    public void SetGuarantee (Set<Guarantee> guarantees) {
-	    	Guarantees = guarantees;
-	    }
+public Contract(int idcontract, Date date_end, float mnt, float prime, float commission,int titrenbr, type_contract type_contract) {
+   this.idcontract=idcontract;
+    this.date_end=date_end;
+    this.titrenbr=titrenbr;
+      this.commission=commission;
+	this.prime=prime;
+	this.type_contract=type_contract;
+	this.mnt=mnt;
+}
+
+//getters and setters
+	
+        
+		// public Set<Guarantee> getGuarantees() {
+	    	//return Guarantees;
+	    //}
+	    //public void SetGuarantee (Set<Guarantee> guarantees) {
+	    	//Guarantees = guarantees;
+	    //}
 	    public AssetManager getAssetManager() {
 	    	return am;
 	    }
@@ -107,19 +120,14 @@ public type_contract getType_contract() {
 	    public void setClient(Client client) {
 	    	this.client = client;
 	    }
-	public Ensemble getEnsemble() {
-		return ensemble;
-	}
-	public void setEnsemble(Ensemble ensemble) {
-		this.ensemble = ensemble;
-	}
+	
 //***************************
 	
 	public int getContract_id() {
-		return contract_id;
+		return idcontract;
 	}
-	public void setContract_id(int contract_id) {
-		this.contract_id = contract_id;
+	public void setContract_id(int id) {
+		this.idcontract = idcontract;
 	}
 
 
@@ -139,6 +147,20 @@ public type_contract getType_contract() {
 	public void setDate_end(Date date_end) {
 		this.date_end = date_end;
 	}
+	public String getNom_Ent() {
+		return nomentr;
+	}
+
+	public void setNom_Ent(String nomentr) {
+		this.nomentr = nomentr;
+	}
+	public int getTitre_nbr() {
+		return titrenbr;
+	}
+
+	public void setTitre_nbr(int titrenbr) {
+		this.titrenbr = titrenbr;
+	}
 
 	public float getCommission() {
 		return commission;
@@ -155,91 +177,48 @@ public type_contract getType_contract() {
 	public void setPrime(float prime) {
 		this.prime = prime;
 	}
-	public String getTitre() {
-		return titre;
-	}
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
+	
 	public float getRisk() {
 		return riskk;
 	}
 	public void setRisk(float riskk) {
 		this.riskk = riskk;}
 	
+	public float getMNT() {
+		return mnt;
+	}
+	public void setMNT(float mnt ){
+		this.mnt = mnt;}
 	
-	public List<String> getMotcle() {
-		return motcle;
+	public String getDescription() {
+		return description;
 	}
-	public void setMotcle(List<String> motcle) {
-		this.motcle = motcle;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public boolean isEtat() {
+	
+	
+	public boolean getEtat() {
 		return etat;
 	}
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	public String getReponse() {
-		return reponse;
+	
+	
+	
+	
+	public void settype_contract(type_contract type_contract) {
+		this.type_contract = type_contract;
 	}
-	public void setReponse(String reponse) {
-		this.reponse = reponse;
-	}
 	
 	
-
+	public Entities.type_contract gettype_contract() {return type_contract;}
 	
-	public Contract(Integer contractIdToBeUpdated,Date date_end,float commission, float prime,float riskk) {
-		 super();
-
-		this.setContractIdToBeUpdated(contractIdToBeUpdated);
-			this.date_end=date_end;
-			this.commission=commission;
-			this.prime=prime;
-			this.riskk=riskk;
-		}
-	public Contract(int contract_id,String titre,Date date_creation,Date date_end,float commission, float prime,float riskk, List<String> motcle, boolean etat, String reponse) {
-    super();
-    this.date_creation=date_creation;
-	this.date_end=date_end;
-	this.commission=commission;
-	this.prime=prime;
-	this.contract_id = contract_id;
-	this.titre = titre;
-	this.motcle = motcle;
-	this.etat = etat;
-	this.reponse = reponse;
-	this.riskk=riskk;
-	}
-
+	public void settype_contract(String type_contract) {}
 	
 	
-	public Contract(Date date_creation,Date date_end,String titre,type_contract type_contract,float commission, float prime,float riskk, List<String> motcle, boolean etat, String reponse) {
-	    super();
-	    this.date_creation=date_creation;
-		this.date_end=date_end;
-		this.commission=commission;
-		this.prime=prime;
-		this.titre = titre;
-		this.type_contract=type_contract;
-		this.motcle = motcle;
-		this.etat = etat;
-		this.reponse = reponse;
-		this.riskk=riskk;
-		}
 	
-	public Contract(Date date_creation,Date date_end,String titre,type_contract type_contract,float commission, float prime,float riskk) {
-	    super();
-	    this.date_creation=date_creation;
-		this.date_end=date_end;
-		this.commission=commission;
-		this.prime=prime;
-		this.titre = titre;
-		this.type_contract=type_contract;
-		
-		this.riskk=riskk;
-		}
 	
 
 	
@@ -252,12 +231,6 @@ public type_contract getType_contract() {
 	
 	
 	
-	
-	
-	
-	public void addGuarantee(Guarantee guarantee){
-		this.Guarantees.add(guarantee);
-}
 	public Integer getContractIdToBeUpdated() {
 		return contractIdToBeUpdated;
 	}

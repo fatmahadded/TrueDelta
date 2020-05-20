@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,61 +18,64 @@ import Entities.Guarantee;
 
 import interfaces.IContracthomeServiceRemote;
 
-
-
-
 @Stateless
+@LocalBean
 public class ContractHomeService implements  IContracthomeServiceRemote {
 	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
-	
-	
 
 	@Override
-	public int addContracth(Contract cn) {
-		em.persist(cn);
-		return cn.getContract_id();
+	public void ajouterContract(Contract contract) {
+		em.persist(contract);
+		
 	}
 
 	@Override
-	public void removeContracth(int id) {
-		System.out.println (" In remove Contract ById : ");
-		em.remove(em.find(Contract.class, id));
+	public void affecterContratAClient(int idcontract, int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeContract(int idcontract) {
+		System.out.println("In remove Contract between Client and AM : ");
+		em.remove(em.find(Contract.class, idcontract));
 		System.out.println("Out of remove Contract: ");
-
+		
 	}
 
 	@Override
-	public int updateContracth(Contract cn) {
-		Contract oldP = em.find(Contract.class, cn.getContract_id());
-		Client client = em.find(Client.class, oldP.getClient().getId());
-		cn.setClient(client);
-		em.merge( cn);
-		return cn.getContract_id();
+	public void updateContract(Contract contract) {
+		System.out.println("In update Contract Between Client and AssetM : ");
+		Contract cnt = em.find(Contract.class,contract.getContract_id());
+		cnt.setMNT(contract.getMNT()); 
+		cnt.setCommission(contract.getCommission()); 
+		cnt.setPrime(contract.getPrime());
+		cnt.setTitre_nbr(contract.getTitre_nbr());
+		System.out.println("Out of update : ");
+		
 	}
 
 	@Override
-	public Contract findContractById(int id) {
-		System.out.println("In find Contract By Id : ");
-		Contract cth = em.find(Contract.class, id);
-
-		System.out.println("Out of find Contract By Id : ");
-		return cth;
+	public Contract findContractById(int idcontract) {
+		System.out.println("In findContractById : ");
+		Contract ccn = em.find(Contract.class, idcontract);
+		System.out.println("Out of findContractById : ");
+		return ccn;
 	}
 
 	@Override
 	public List<Contract> findAllContracths() {
-		System.out.println("In find All Contracts : ");
-		List<Contract> Contracth = em.createQuery("from Contract", Contract.class).getResultList();
-		
-		System.out.println("Out of find All Contracts + : ");
-		return Contracth;
+		System.out.println("In findAllContracts : ");
+		List<Contract> contracts = em.createQuery("select c from Contract c", Contract.class).getResultList();
+		System.out.println("Out of findAllContracts : ");
+		return contracts;
 	}
 
 	@Override
 	public List<Contract> findAllContractsbyclient(int id) {
 		System.out.println("In find All Contracts: ");
-		Query q =em.createNativeQuery("SELECT * FROM contract a where a.Client_User_ID = :id");
+		Query q =em.createNativeQuery("SELECT * FROM Contract a where a.Client_User_ID = :id");
 		
 		q.setParameter("id", id);
 		List<Contract> Contracth  =  q.getResultList();
@@ -103,25 +107,9 @@ public class ContractHomeService implements  IContracthomeServiceRemote {
 				  query.setParameter("id", id);
 				  return query.getSingleResult();
 	}
-
-	@Override
-	public long calculerNbrTitres(int idClient) {
-		TypedQuery<Long> query1 = em.createQuery(
-				"SELECT SUM(bondsnbr) FROM Bonds WHERE Bonds.id=:id_bonds"  
-				, Long.class);  
-		query1.setParameter("id_bonds", idClient); 	
-		long bondsnbr = query1.getSingleResult(); 
-
-		TypedQuery<Long> query2 = em.createQuery(
-				"SELECT SUM(sharesnbr) FROM Shares WHERE shares.id=:id_shares" 
-				, Long.class);  
-		query2.setParameter("id_shares", idClient); 	
-		long sharesnbr = query2.getSingleResult(); 		
-
-		return bondsnbr + sharesnbr;
-	}
-
 	
+	
+
 
 
 }

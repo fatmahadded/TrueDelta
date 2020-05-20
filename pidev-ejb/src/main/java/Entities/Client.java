@@ -19,7 +19,7 @@ import Entities.Contract;
 
 @Entity
 @Table(name = "Client")
-public class Client extends User implements Serializable {
+public class Client implements Serializable {
 /**
 	 * 
 	 */
@@ -29,75 +29,73 @@ public class Client extends User implements Serializable {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name = "IdClient")
 private int id; // Clé primaire
-@Column(name = "Username")
-private String username;
- @Column(name = "Firstname")
+@Column(name = "First_Name_Client")
 private String firstname;
-@Column(name = "Lastname")
+@Column(name = "Last_Name_Client")
 private String lastname;
-@Column(name = "Password")
+@Column(name = "Adress_Mail_Client")
+private String email;
 private String password;
-@Column(name = "Image")
-private String image;
+private Boolean isActif;
+//@Column(name = "Image")
+//private String image;
 
-public Client(Integer clientIdToBeUpdated, String username2, String image2) {}
 	
+//relation
+
 @OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
             fetch=FetchType.EAGER)
 private Set<Portfolio> Portfolios;	        
+
 @OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
  private Set<BankAccount> BankAccounts;
+
 @OneToMany(cascade = CascadeType.ALL, mappedBy="Client")
 private Set<Contract> Contracts;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId( int id) {
+	
+
+//constructeur
+public Client() {}
+public Client(String lastname, String firstname, String email, String password,  Boolean isActif) {
+	this.lastname=lastname;
+	this.firstname=firstname;
+	this.email=email;
+	this.password=password;
+	this.setIsActif(isActif);}
+
+public Client(int id,String lastname, String firstname, String email, String password,  Boolean isActif) {
+	this.id=id;
+	this.lastname=lastname;
+	this.firstname=firstname;
+	this.email=email;
+	this.password=password;
+	this.setIsActif(isActif);}
+
+
+public int getId() {
+	return id;
+}
+
+public void setId( int id) {
 		this.id = id;
 	}
+public String getEmail() {return email;}
+public void setEmail(String adresseMail){this.email = adresseMail;} 
+public String getFirstname() {return firstname;}
+public void setFirstname(String firstname) {this.firstname = firstname;}
+public String getLastname() {return lastname;}
+public void setLastname(String lastname) {this.lastname = lastname;}
+public String getPassword() {return password;	}
+public void setPassword(String password) {this.password = password;}
 
-	public String getUsername() {
-		return username;
-	}
+public Boolean getIsActif() {
+	return isActif;
+}
+public void setIsActif(Boolean isActif) {
+	this.isActif = isActif;
+}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	
-	
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 	
 	public Set<Contract> getContracts() {
@@ -131,11 +129,11 @@ private Set<Contract> Contracts;
 
 	
 
-	@Override
-	public String toString() {
-		return "Client [IdClient=" +id+ ", Username=" + username + ", Lastname=" + lastname+ ", Firstname" + firstname +
-				 ", Password=" + password + ", Image=" + image +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
-	}
+	//@Override
+	//public String toString() {
+		//return "Client [IdClient=" +id+ ", AdressMail=" + email + ", Lastname=" + lastname+ ", Firstname" + firstname +
+				 //", Password=" + password + ", Image=" + image +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
+	//}
 
 public void addBankAccount(BankAccount ba){
 		ba.setClients(this);
@@ -146,36 +144,6 @@ public void addContract(Contract cn){
 }
 
 
-	//constructeur
-	public Client( String username, String firstname, String lastname, String password, String image,Set<Portfolio> portfolios,Set<BankAccount> bankAccounts,Set<Contract> contracts) {
-		super();
-		
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.image = image;
-		Portfolios = portfolios;
-		BankAccounts= bankAccounts;
-		Contracts=contracts;
-	}
-	public Client( String username, String firstname, String lastname, String password, String image) {
-		
-		
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.image = image;
-	}
-public Client( int id,String username, String firstname, String lastname, String password, String image) {
-		
-		this.id=id;
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.image = image;
-	}
+	
 	
 }

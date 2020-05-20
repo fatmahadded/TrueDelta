@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+<section class="content">Hello
+		<i class="pi pi-check" style="font-size: 3em"></i></section>
+		
+	<!-- Partie Bonjour  -->
+<h:panelGroup>
+<h:form>
+<h:outputText value="Formulaire Contract" /> | 
+<h:commandLink value="Déconnexion" action="#{loginBeann.doLogout()}" />
+</h:form>
+</h:panelGroup>	
+		
+		<h1>Ajout Du Contract</h1>
+		
+<h:panelGroup columns="2">
+<h:form>
+<table>
+
+		<tr>
+		<td><h:outputText value="Date debut du contract"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.date_creation}"></h:inputText></td>
+		</tr>
+					
+		<tr>
+		<td><h:outputText value="Date fin du Contract"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.date_end}"></h:inputText></td>
+		</tr>
+					
+	
+				
+		<tr>
+		<td><h:outputText value="Prime du Client"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.prime}"></h:inputText></td>
+		</tr>
+	    
+	    <tr>
+		<td><h:outputText value="Titre du Contract"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.titrenbr }"></h:inputText></td>
+		</tr>
+					
+		<tr>
+		<td><h:outputText value="Le Risue estimé"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.riskk }"></h:inputText></td>
+		</tr>
+				
+		
+		<tr><td><h:outputText value="Type du Contract"></h:outputText>
+<h:selectOneMenu value="#{contractBean.type_contract}">
+<f:selectItem itemLabel="Choisir Type" itemValue=""/>
+<f:selectItems value="#{data.types_contracts}" />
+</h:selectOneMenu>
+</td></tr>	
+			
+			
+<tr>
+<td colspan="2"><h:commandButton value="Ajouter Contract"
+action="#{addcontract.addContracth()}" />
+</td></tr>
+</table>
+</h:form>
+</h:panelGroup>
+
+
+
+<!-- Partie Recuperation contrat-->
+
+<h:panelGroup columns="2">
+<h:form>
+<h:dataTable value="#{contractBean.contracts}" var="contract" border="1">
+
+<h:column><f:facet name="header"><h:outputText value="Date Creation" /></f:facet>
+<h:outputText value="#{contract.date_creation}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Date END" /></f:facet>
+<h:outputText value="#{contract.date_end}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Prime" /></f:facet>
+<h:outputText value="#{contract.prime}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Nombre de Titres" /></f:facet>
+<h:outputText value="#{contract.titrenbr}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Risque Estimé" /></f:facet>
+<h:outputText value="#{contract.riskk}" /></h:column>
+
+
+
+
+<h:column><f:facet name="header"><h:outputText value="Etat" /></f:facet>
+<h:outputText value=" #{client.etat == true ? 'accepté' : 'rejeté'}" /></h:column>
+
+<h:column>
+<f:facet name="header"><h:outputText value="Action" /></f:facet>
+<h:commandButton action="#{contractBean.removeContract(contract.idcontract)}" value="Supprimer" /> 
+<h:commandButton action="#{contractBean.displayContract(contract)}" value="Afficher" />
+</h:column>
+
+</h:dataTable>
+</h:form>
+</h:panelGroup>
+</ui:define>
+</ui:composition> 
