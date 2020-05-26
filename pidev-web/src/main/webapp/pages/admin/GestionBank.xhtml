@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+
+	<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	display: none;
+}
+</style>
+
+	<ui:define name="content">
+
+		<h:panelGroup columns="2">
+			<h:form>
+				<h1>Ajouter une Banque</h1>
+				<table>
+					<tr>
+						<td><h:outputText value="nom"></h:outputText></td>
+						<td><h:inputText value="#{gestionBankBean.nom}"
+								onfocus="if(this.value == 'valeur')this.value = '';"></h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="agence"></h:outputText></td>
+						<td><h:inputText value="#{gestionBankBean.agence}"
+								onfocus="if(this.value == 'valeur')this.value = '';"></h:inputText></td>
+					</tr>
+
+					<tr>
+						<td colspan="2"><h:commandButton value="Ajouter"
+								class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav "
+								action="#{gestionBankBean.addBank()}" /></td>
+					</tr>
+				</table>
+			</h:form>
+		</h:panelGroup>
+
+		<h:panelGroup columns="2">
+			<h:form>
+				<h1>List des bnak inscrit</h1>
+
+				<p:dataTable var="bank" value="#{gestionBankBean.banks}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" id="bankTable" lazy="true"
+					multiViewState="true">
+					<p:column headerText="Id">
+						<h:outputText value="#{bank.id}" />
+					</p:column>
+					<p:column headerText="nomBank" sortBy="#{bank.nom}"
+						filterBy="#{bank.nom}">
+						<h:outputText value="#{bank.nom}" />
+					</p:column>
+					<p:column headerText="agance" sortBy="#{bank.agence}"
+						filterBy="#{bank.agence}">
+						<h:outputText value="#{bank.agence}" />
+					</p:column>
+					<p:column headerText="nombreClient">
+						<h:outputText value="#{bank.nbr}" />
+					</p:column>
+
+					<p:column headerText="Action">
+						<h:commandButton action="#{gestionBankBean.removeBank(bank.id)}"
+							value="Supprimer" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

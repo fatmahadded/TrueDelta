@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,29 +16,30 @@ import javax.persistence.Table;
 @Entity
 @Table( name= "Bank")
 public class Bank implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="IdBank")
 	private int id; // Clé primaire
-	@Column(name="IBAN")
-	private String iban;
-	@Column(name="Swift")
-	private String swift;
-	@Column(name="Name")
-	private String name;
-	@Column(name="Logo")
-	private String logo;
+	@Column(name="nom")
+	private String nom;
+	@Column(name="agence")
+	private String agence;
+	@Column(name="nombreClient")
+	private int  nbr;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="Bank")
 	
 	private Set<BankAccount> BankAccounts;
 
 	public Bank() {}
-	public Bank(String iban, String swift, String name, String logo) {
-		this.iban=iban;
-		this.swift=swift;
-		this.name=name;
-		this.logo=logo;
+	public Bank(String nom, String agance, int nbr) {
+		this.nom=nom;
+		this.agence=agance;
+		this.nbr=nbr;
+		
 	}
 
 	public int getId() {
@@ -50,38 +50,24 @@ public class Bank implements Serializable {
 		this.id = id;
 	}
 
-	public String getIban() {
-		return iban;
+	public String getNom() {
+		return nom;
 	}
-
-	public void setIban(String iban) {
-		this.iban = iban;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
-
-	public String getSwift() {
-		return swift;
+	public String getAgence() {
+		return agence;
 	}
-
-	public void setSwift(String swift) {
-		this.swift = swift;
+	public void setAgence(String agence) {
+		this.agence = agence;
 	}
-
-	public String getName() {
-		return name;
+	public int getNbr() {
+		return nbr;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setNbr(int nbr) {
+		this.nbr = nbr;
 	}
-
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
 	@Transient
 	public Set<BankAccount> getBankAccounts() {
 		return BankAccounts;

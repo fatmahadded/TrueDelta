@@ -88,10 +88,9 @@ public class AdministratorControleur implements Serializable {
 	    public Response update(@PathParam("id") int id, Bank bank) {
 	        Bank updateBank = service.findById(id);
 
-	        updateBank.setName(bank.getName());;
-	        updateBank.setSwift(bank.getSwift());
-	        updateBank.setIban(bank.getIban());
-	        updateBank.setLogo(bank.getLogo());
+	        updateBank.setNom(bank.getNom());;
+	        updateBank.setAgence(bank.getAgence());
+	        updateBank.setNbr(bank.getNbr());
 	        service.update(updateBank);
 
 	        return Response.ok().build();

@@ -3,8 +3,8 @@ package services;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.ejb.LocalBean;
@@ -39,7 +39,14 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 	public void update(Bank bank) {
 		em.merge(bank);
 	}
-
+	
+	@Override
+	public void deleteBankById(int id) {
+		Bank bank = em.find(Bank.class, id);
+		System.out.println("ID" + bank);
+		em.remove(bank);
+	}
+	
 	@Override
 	public void deleteBank(Bank bank) {
 		if (!em.contains(bank)) {
@@ -47,12 +54,6 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 		}
 		em.remove(bank);
 	}
-
-	/*
-	 * @Override public boolean foundByIban(String ibn) { boolean resulta = false;
-	 * Bnc bnc = new Bnc(); if(bnc.getIban().equals(ibn)) { resulta = true; } return
-	 * resulta; }
-	 */
 
 	@Override
 	public Bnc recherche(String nom_bank, String iban, Double montant) {
@@ -116,6 +117,11 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 		}
 	}
 	
-	
+	@Override
+	public List<Bank> getAllBank() {
+		List<Bank> bank = em.createQuery("Select b from Bank b", Bank.class).getResultList();
+		return bank;
+	}
+
 
 }
