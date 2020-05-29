@@ -26,6 +26,8 @@ public class BankAccountBean implements Serializable { /**
 	private double montant;
 
 	private Integer baIdToBeUpdated;
+	
+	BankAccount ba;
 
 	//******************************
 	public int getId() {
@@ -59,19 +61,14 @@ public class BankAccountBean implements Serializable { /**
 			this.montant = montant;
 		}
 		
+		
 		public BankAccount getBankAccount() {
 			return ba;
 		}
-		public void setClient(BankAccount ba) {
+		public void setBankAccount(BankAccount ba) {
 			this.ba = ba;
 		}
-		public ClientAccbank getClientAccbank() {
-			return cab;
-		}
-
-		public void setClientAccbank(ClientAccbank  cab) {
-			this.cab =cab;
-		}
+		
 		
 		public Integer getBAIdToBeUpdated() {
 			return baIdToBeUpdated;
@@ -79,27 +76,23 @@ public class BankAccountBean implements Serializable { /**
 		public void setBAIdToBeUpdated(Integer baIdToBeUpdated) {
 			this.baIdToBeUpdated = baIdToBeUpdated;
 		} 
+		
+		
+		
+		
 		//*****************
-		BankAccount ba;
 		@EJB
 		ClientAccbank cab; 
 		
 		public void addBankAccount() {
-			String navigateTo = "null";
-			navigateTo = "/pages/clients/addclient?faces-redirect=true";
+			
 			ba= (new BankAccount(rib, montant,departement));
-			cab.addBankAccount(ba);
+			cab.ajouterBankAccount(ba);
 			}
-		public void removeBankAccountById(int id) {
-			String navigateTo = "null";
-			navigateTo = "/pages/clients/addclient?faces-redirect=true";
-			cab.removeBankAccountById(id);
-		}
 		
 		public void displayBa(BankAccount ba) 
 		{
-			String navigateTo = "null";
-			navigateTo = "/pages/clients/addclient?faces-redirect=true";
+
 			this.setMontant(ba.getMontant());
 			this.setRib(ba.getRib());
 			this.setDepartement(ba.getDepartement());
@@ -107,16 +100,14 @@ public class BankAccountBean implements Serializable { /**
 
 		}
 		public List<BankAccount> findAllBankAccounts()
-		{	String navigateTo = "null";
-		navigateTo = "/pages/clients/addclient?faces-redirect=true";
+		{	
 			List<BankAccount> bas=cab.findAllBankAccounts();
 			return bas;
 		}
 		
 		public void updateAccountBank() 
 		{ 
-			String navigateTo = "null";
-			navigateTo = "/pages/clients/addclient?faces-redirect=true";
+			
 			cab.updateAccountBank(new BankAccount(baIdToBeUpdated, montant)); } 
 		
 		

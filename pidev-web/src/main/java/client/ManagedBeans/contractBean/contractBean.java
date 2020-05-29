@@ -1,16 +1,19 @@
 package client.ManagedBeans.contractBean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import Entities.Choix;
 import Entities.Contract;
-import Entities.type_contract;
+import Entities.Type;
+
 import services.ContractHomeService ;
+
 
 @ManagedBean (name="contractBean")
 @SessionScoped
@@ -26,11 +29,12 @@ public class contractBean implements Serializable{
 	private float commission;
 	private float prime;
 	private float riskk;
-	private float mnt;
+	private float gain;
 	private String description;
 
-	private Boolean etat; 
-	private type_contract type_contract;
+	 private Type type;
+	 private Choix choix;
+
 	private Integer contractIdToBeUpdated;
 	Contract contract;
 
@@ -92,11 +96,11 @@ public class contractBean implements Serializable{
 	public void setRisk(float riskk) {
 		this.riskk = riskk;}
 	
-	public float getMNT() {
-		return mnt;
+	public float getGain() {
+		return gain;
 	}
-	public void setMNT(float mnt ){
-		this.mnt = mnt;}
+	public void setGain(float gain ){
+		this.gain = gain;}
 	
 	public String getDescription() {
 		return description;
@@ -104,23 +108,22 @@ public class contractBean implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 
-	public boolean getEtat() {
-		return etat;
-	}
-	public void setEtat(boolean etat) {
-		this.etat = etat;
-	}
-	
-	public type_contract gettype_contract() {
-		return type_contract;
+	public Type getType() {
+		return type;
 	}
 
-	public void settype_contract(type_contract type_contract) {
-		this.type_contract = type_contract;
+	public void setType(Type type) {
+		this.type = type;
+	}  
+	
+	public Choix getChoix() {
+		return choix;
 	}
+
+	public void setChoix(Choix choix) {
+		this.choix = choix;
+	}  
 
 
 	public Integer getContractIdToBeUpdated() {
@@ -141,9 +144,10 @@ public class contractBean implements Serializable{
 	ContractHomeService contractService; 
 	
 	public void addContract() {
-		String navigateTo = "null";
-		navigateTo = "/pages/clients/ajoutcontract?faces-redirect=true";
-		contract= (new Contract(date_creation, date_end,nomentr,titrenbr,commission,prime, riskk,mnt,description,etat, type_contract));
+		//String navigateTo = "null";
+		//navigateTo = "/pages/clients/ajoutcontract?faces-redirect=true";
+		contract= (new Contract(date_creation, date_end,nomentr,titrenbr,commission,prime, riskk,gain,description, type,choix));
+
 		contractService.ajouterContract(contract);
 		}
 		
@@ -163,16 +167,15 @@ public class contractBean implements Serializable{
 		this.setCommission(cnt.getCommission());
 		this.setPrime(cnt.getPrime());
 		this.setRisk(cnt.getRisk());
-		this.setMNT(cnt.getMNT());
+		this.setGain(cnt.getGain());
 		this.setDescription(cnt.getDescription());
 		
-		this.setEtat(cnt.getEtat());
-		
-		this.settype_contract(cnt.gettype_contract());
+		this.setChoix(cnt.getChoix());
+		this.setType(cnt.getType());
 		this.setContractIdToBeUpdated(cnt.getContract_id());
 		}
 		public void  updateContract() 
-		{ contractService.updateContract(new Contract(contractIdToBeUpdated, date_end, mnt, prime, commission, titrenbr, type_contract)); } 
+		{ contractService.updateContract(new Contract(contractIdToBeUpdated, date_end, gain, prime, commission, titrenbr, type)); } 
 		
 		
 		

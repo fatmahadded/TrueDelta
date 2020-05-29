@@ -4,8 +4,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/WEB-INF/template/template.xhtml">
+	<ui:param name="page_name" value="Contract" />
 
-	<ui:define name="content">
+<ui:define name="content">
 <section class="content">Hello
 		<i class="pi pi-check" style="font-size: 3em"></i></section>
 		
@@ -13,7 +14,7 @@
 <h:panelGroup>
 <h:form>
 <h:outputText value="Formulaire Contract" /> | 
-<h:commandLink value="Déconnexion" action="#{loginBeann.doLogout()}" />
+<h:commandLink value="Déconnexion" action="#{loginBean.doLogout()}" />
 </h:form>
 </h:panelGroup>	
 		
@@ -25,43 +26,69 @@
 
 		<tr>
 		<td><h:outputText value="Date debut du contract"></h:outputText></td>
-		<td><h:inputText value="#{contractBean.date_creation}"></h:inputText></td>
+		<td><h:inputText value="#{contractBean.date_creation}" label="Date">  
+		<f:convertDateTime pattern="dd-mm-yyyy">
+		</f:convertDateTime>
+		</h:inputText></td>
 		</tr>
 					
 		<tr>
 		<td><h:outputText value="Date fin du Contract"></h:outputText></td>
-		<td><h:inputText value="#{contractBean.date_end}"></h:inputText></td>
+		<td><h:inputText value="#{contractBean.date_end}" label="Date">
+		<f:convertDateTime pattern="dd-mm-yyyy">
+		</f:convertDateTime>
+		</h:inputText></td>
 		</tr>
-					
 	
+		
+		<tr><td><h:outputText value="Type  "></h:outputText>
+<h:selectOneMenu value="#{contractBean.type}">
+<f:selectItem itemLabel="type contract" itemValue=""/>
+<f:selectItems value="#{data.types}" />
+</h:selectOneMenu>
+</td></tr>
+
+	
+<tr><td><h:outputText value="Sale/Purchace  "></h:outputText>
+<h:selectOneMenu value="#{contractBean.choix}">
+<f:selectItem itemLabel="Choice" itemValue=""/>
+<f:selectItems value="#{data.choixs}" />
+</h:selectOneMenu>
+</td></tr>
+		
+		
+		
+		
 				
+		 <tr>
+		<td><h:outputText value="Company's Name"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.nomentr }"></h:inputText></td>
+		</tr>
 		<tr>
-		<td><h:outputText value="Prime du Client"></h:outputText></td>
+		
+		<td><h:outputText value="Prime"></h:outputText></td>
 		<td><h:inputText value="#{contractBean.prime}"></h:inputText></td>
 		</tr>
-	    
-	    <tr>
-		<td><h:outputText value="Titre du Contract"></h:outputText></td>
-		<td><h:inputText value="#{contractBean.titrenbr }"></h:inputText></td>
+		<tr>
+		<td><h:outputText value="Commission"></h:outputText></td>
+		<td><h:inputText value="#{contractBean.commission}"></h:inputText></td>
 		</tr>
+	    
+	   
 					
 		<tr>
-		<td><h:outputText value="Le Risue estimé"></h:outputText></td>
+		<td><h:outputText value="Estimated Risk"></h:outputText></td>
 		<td><h:inputText value="#{contractBean.riskk }"></h:inputText></td>
 		</tr>
 				
 		
-		<tr><td><h:outputText value="Type du Contract"></h:outputText>
-<h:selectOneMenu value="#{contractBean.type_contract}">
-<f:selectItem itemLabel="Choisir Type" itemValue=""/>
-<f:selectItems value="#{data.types_contracts}" />
-</h:selectOneMenu>
-</td></tr>	
-			
+	
+
+
 			
 <tr>
 <td colspan="2"><h:commandButton value="Ajouter Contract"
-action="#{addcontract.addContracth()}" />
+action="#{addcontract.ajouterContract()}" />
 </td></tr>
 </table>
 </h:form>
@@ -81,20 +108,28 @@ action="#{addcontract.addContracth()}" />
 <h:column><f:facet name="header"><h:outputText value="Date END" /></f:facet>
 <h:outputText value="#{contract.date_end}" /></h:column>
 
+<h:column><f:facet name="header"><h:outputText value="Company's Name" /></f:facet>
+<h:outputText value="#{contract.nomentr}" /></h:column>
+
+
 <h:column><f:facet name="header"><h:outputText value="Prime" /></f:facet>
 <h:outputText value="#{contract.prime}" /></h:column>
 
-<h:column><f:facet name="header"><h:outputText value="Nombre de Titres" /></f:facet>
-<h:outputText value="#{contract.titrenbr}" /></h:column>
+<h:column><f:facet name="header"><h:outputText value="Commission" /></f:facet>
+<h:outputText value="#{contract.commission}" /></h:column>
 
-<h:column><f:facet name="header"><h:outputText value="Risque Estimé" /></f:facet>
+
+<h:column><f:facet name="header"><h:outputText value="Estimated Risk" /></f:facet>
 <h:outputText value="#{contract.riskk}" /></h:column>
 
+<h:column><f:facet name="header"><h:outputText value="Type" /></f:facet>
+<h:outputText value="#{contract.type}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Choice" /></f:facet>
+<h:outputText value="#{contract.choix}" /></h:column>
 
 
 
-<h:column><f:facet name="header"><h:outputText value="Etat" /></f:facet>
-<h:outputText value=" #{client.etat == true ? 'accepté' : 'rejeté'}" /></h:column>
 
 <h:column>
 <f:facet name="header"><h:outputText value="Action" /></f:facet>
@@ -105,5 +140,7 @@ action="#{addcontract.addContracth()}" />
 </h:dataTable>
 </h:form>
 </h:panelGroup>
-</ui:define>
-</ui:composition> 
+</ui:define>	
+</ui:composition>
+
+	

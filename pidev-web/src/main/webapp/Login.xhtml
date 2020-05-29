@@ -7,8 +7,23 @@ xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/template.xhtml">
 <h1>Connexion</h1>
 <h:form id="form">
 <h:panelGrid columns="2">
-<h:outputText value="Login" /> <h:inputText value="#{loginBean.login}" />
-<h:outputText value="Mot de passe" /> <h:inputSecret value="#{loginBean.password}" />
+<h:outputText value="Login" /> <h:inputText value="#{loginBean.login}"  required="true" requiredMessage="La saisie du login est obligatoire !"  />
+<h:message for="login" styleClass="errorBlock" />
+              
+                
+
+<h:outputText value="Mot de passe" /> <h:inputSecret value="#{loginBean.password}"  required="true"
+                               requiredMessage="La saisie du mot de passe est obligatoire !"
+                               validatorMessage="Votre mot de passe doit contenir entre 3 à 12 caractères" /> 
+                <h:message for="password" styleClass="errorBlock" />
+              
+
+
+
+
+
+
+
 <h:commandButton id="btn" value="Connexion" action="#{loginBean.doLogin()}" />
 <h:message for="btn"/>
 </h:panelGrid>

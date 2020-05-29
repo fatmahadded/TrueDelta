@@ -22,34 +22,24 @@ public class ClientAccbank implements ClientAccbankRemote {
 		@PersistenceContext(unitName = "PiDbDS")
 		EntityManager em;
 
-
 		@Override
-		public void addBankAccount(BankAccount ba) {
-			
-			em.persist(ba);	}
-
-		@Override
-		public void removeBankAccountById(int idba) {
-			System.out.println (" In remove BankAccount By Id : ");
-			em.remove(em.find(BankAccount.class, idba));
-			System.out.println ("Out of remove Bank Account By Id : ");
+		public void ajouterBankAccount(BankAccount ba) {
+			em.persist(ba);	
 			
 		}
 
 		@Override
-		public BankAccount findBankAccountById(int idba) {
+		public BankAccount findBankAccountById(int id) {
 			System.out.println ("In find BankAccount By Id : ");
-			BankAccount ba = em.find(BankAccount.class, idba);
+			BankAccount ba = em.find(BankAccount.class, id);
 			System.out.println ("Out of find BankAccount By Id : ");
 			return ba; }
 
-		//@Override
-		//public void affecterBankAccountClient(int idba, int idclient) {
-			//Client clientManagedEntity = em.find(Client.class, idclient);
-			//BankAccount baManagedEntity = em.find(BankAccount.class, idba);
+		@Override
+		public BankAccount getaccountbankByDepatement(String departement) {
+			return (BankAccount) em.createQuery("select d from BankAccount d where d.departement=:departement").setParameter("departement", departement).getResultList().get(0);
 
-			//baManagedEntity.setClients(clientManagedEntity);
-		//}
+		}
 
 		@Override
 		public List<BankAccount> findAllBankAccounts() {
@@ -61,35 +51,26 @@ public class ClientAccbank implements ClientAccbankRemote {
 		}
 
 		@Override
-		public void updateAccountBank(BankAccount userNewValues) {
-			System.out.println("In updateAccountBank : ");
-			BankAccount ba = em.find(BankAccount.class, userNewValues.getId());
-			ba.setMontant(userNewValues.getMontant());
-			System.out.println("Out of updateAccountBank: ");
+		public void updateAccountBank(BankAccount baNewValues) {
+			// TODO Auto-generated method stub
 			
-		}
-
-		@Override
-		public BankAccount getaccountbankByDepatement(String departement) {
-
-			
-			return (BankAccount) em.createQuery("select d from BankAccountc where d.departement=:departement").setParameter("departement", departement).getResultList().get(0);
 		}
 
 		@Override
 		public List<String> getAllDepartementNamesOfAccountBankByClient(int id) {
-			TypedQuery<BankAccount> liste = em.createQuery("SELECT departement FROM AccountBank a  WHERE a.idclient = :idclient", BankAccount.class);
-			return (List<String>) liste.setParameter("idclient",id);	
+			TypedQuery<BankAccount> liste = em.createQuery("SELECT departement FROM AccountBank a  WHERE a.id = :id", BankAccount.class);
+			return (List<String>) liste.setParameter("id",id);	
 		}
 
 		@Override
 		public float getRibyClientIdJPQL(int id) {
 			TypedQuery<Float> query = em.createQuery(
-					  "select c.rib from BankAccount c join c.Client e where e.idclient=:idclient", 
+					  "select c.rib from BankAccount c join c.Client e where e.id=:id", 
 					  Float.class);
-					  query.setParameter("idclient", id);
+					  query.setParameter("id", id);
 					  return query.getSingleResult();	
 		}
+
 
 		
 		

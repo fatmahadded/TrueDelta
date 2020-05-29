@@ -19,8 +19,24 @@ import services.ClientService;
 	private String firstname;  private String lastname; private String password; 
 	private String email; private Boolean isActif;  
 	private Integer clientIdToBeUpdated;
-	Client client;
-
+	
+	private Client client;
+	
+	@EJB
+	ClientService cs; 
+	
+	//constructeur
+	public  clientBean(){}
+	
+	//getter setter entite
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
+	//getter setter cle
 	public String getFirstname() {
 		return firstname;
 	}
@@ -59,15 +75,17 @@ import services.ClientService;
 	public void setIsActif(Boolean isActif) {
 		this.isActif = isActif;
 	}
-
+	//getter setter service ejb
+	public ClientService getClientService() {
+		return cs;
+	}
+	public void setClientService(ClientService cs) {
+		this.cs = cs;
+	}
+	
 
 	
-	public Client getClient() {
-		return client;
-	}
-	public void setClient(Client client) {
-		this.client = client;
-	}
+	
 	public Integer getClientIdToBeUpdated() {
 		return clientIdToBeUpdated;
 	}
@@ -76,20 +94,19 @@ import services.ClientService;
 	} 
 
 
-	@EJB
-	ClientService clientService; 
+	
 
 	public void addClient() {
 	client= (new Client(lastname, firstname, email, password, isActif));
-	clientService.ajouterClient(client);
+	cs.ajouterClient(client);
 	}
 	
 	public List<Client> getClients()
-	{	List <Client> clients=clientService.getAllClients();
+	{	List <Client> clients=cs.getAllClients();
 		return clients;
 	}
-	public void removeClient(int id) {
-		clientService.removeClient(id);
+	public void removeClient(int idclient) {
+		cs.removeClient(idclient);
 	}
 	public void displayClient(Client cc) 
 	{
@@ -102,7 +119,7 @@ import services.ClientService;
 	this.setClientIdToBeUpdated(cc.getId());
 	}
 	public void updateClient() 
-	{ clientService.updateClient(new Client(clientIdToBeUpdated, lastname, firstname, email, password, isActif)); } 
+	{cs.updateClient(new Client(clientIdToBeUpdated, lastname, firstname, email, password, isActif)); } 
 	
 	}
 	

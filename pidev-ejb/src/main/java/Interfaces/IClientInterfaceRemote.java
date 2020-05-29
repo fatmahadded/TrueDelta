@@ -10,13 +10,13 @@ public interface IClientInterfaceRemote {
 
 	public Client getClientByEmailAndPassword(String email, String password);
 
-	public void removeClient(int id);
+	public void removeClient(int idclient);
 
-	public void ajouterClient(Client client);
+	public int ajouterClient(Client client);
 
-	public void updateClient(Client newClient);
+	public int updateClient(Client newClient);
 
-	public Client findClientById(int id);
+	public Client findClientById(int idclient);
 
 	public List<Client> getAllClients();
 	

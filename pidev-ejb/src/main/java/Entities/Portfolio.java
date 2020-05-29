@@ -36,7 +36,7 @@ public class Portfolio implements Serializable{
 	@Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="IDCount")
-    private int id; //Clé primaire
+    private int idportfolio; //Clé primaire
 	
     @Column(name="GainCount")
     private int gain; 
@@ -45,45 +45,56 @@ public class Portfolio implements Serializable{
     @Column(name="Amount")
     private int amount;
    
-    
-    private int nb_purchased_bond; 
-	private int nb_purchased_stock; 
-	 
-	
+    ///////*******relation
+    @ManyToOne
+	Client Clients;
+     public int getIdportfolio() {
+		return idportfolio;
+	}
+
+	public void setIdportfolio(int idportfolio) {
+		this.idportfolio = idportfolio;
+	}
+
+	public Client getClients() {
+		return Clients;
+	}
+
+	public void setClients(Client clients) {
+		Clients = clients;
+	}
+
 	@ManyToOne
-	private Client client; 
-    @OneToOne
+	 AssetManager AssetManager;
+	 @OneToOne
     private Conflict conflict;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolios")
     private Set<Messages> Messages;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolios")
-    
-    private Set<Feedback> Feedbacks;
-    @ManyToOne
-    AssetManager AssetManager;
+     private Set<Feedback> Feedbacks;
    
     @OneToMany(cascade = CascadeType.ALL, mappedBy="Portfolio")
     private Set<Transaction> Transactions;
     
+    
+    //constructeur
     public Portfolio() {}
     
-    public Portfolio(int id, int gain, int risk, int amount,int nb_purchased_bond,int nb_purchased_stock) {
+    public Portfolio(int idportfolio, int gain, int risk, int amount) {
 		super();
-		this.id = id;
+		this.idportfolio = idportfolio;
 		this.gain = gain;
 		this.risk = risk;
 		this.amount = amount;
-		this.nb_purchased_stock=nb_purchased_stock;
-		this.nb_purchased_bond= nb_purchased_bond;
 	}
-    
+   //getters and setters cle
     public int getId() {
-    	return id;
+    	return idportfolio;
     }
-    public void setId(int id) {
-    	this.id= id;
+    public void setId( int idportfolio) {
+    	this.idportfolio= idportfolio;
     }
     public int getGain() {
     	return gain;
@@ -103,6 +114,7 @@ public class Portfolio implements Serializable{
     public void setAmount(int amount) {
     	this.amount = amount;
     }
+    //getters setters relation
     public Conflict getConflict() {
     	return conflict;
     }
@@ -115,65 +127,40 @@ public class Portfolio implements Serializable{
     public void setMessages(Set<Messages> messages) {
     	Messages = messages;
     }
-    //*****************************************
-    //**************************************
     public Set<Feedback> getFeedbacks() {
     	return Feedbacks;
     }
     public void setFeedbacks(Set<Feedback> feedbacks) {
     	Feedbacks = feedbacks;}
-    //public void SetFeedbacks(List<Feedback> feedbacks) {
-		//Feedbacks = (Set<Feedback>) feedbacks;}
-    //*********************************************
-    //*****************************************
+   
     public AssetManager getAssetManager() {
     	return AssetManager;
     }
     public void setAssetManager(AssetManager assetManager) {
     	AssetManager = assetManager;
     }
-    public Client getClient() {
-    	return client;
-    }
-    public void setClient(Client client) {
-    	this.client = client;
-    }
-    public int getNb_purchased_bond() {
-		return nb_purchased_bond;
-	}
-
-	public void setNb_purchased_bond(int nb_purchased_bond) {
-		this.nb_purchased_bond = nb_purchased_bond;
-	}
-
-	public int getNb_purchased_stock() {
-		return nb_purchased_stock;
-	}
-	public void setNb_purchased_stock(int nb_purchased_stock) {
-		this.nb_purchased_stock = nb_purchased_stock;
-	}
-	
-	
-
+   
+ 
     public Set<Transaction> getTransactions() {
     	return Transactions;
     }
     public void setTransactions(Set<Transaction> transactions) {
     	Transactions = transactions;
     }
+    
+    //*****methode**************
 	
 	public void addTransaction(Transaction transaction) {
 		this.Transactions.add(transaction);}
 	public void addFeedBack(Feedback feedback) {
 			this.Feedbacks.add(feedback);}
+	
+	//*****methode to string****
 	@Override
 	public String toString() {
-	return "Portfolio [id=" + id + ", gain=" + gain + ", risk=" + risk
-	+ ", amount=" + amount + "nb_purchased_bond=" + nb_purchased_bond + ", nb_purchased_stock="
-	+nb_purchased_stock +",client=" +client+ "]";
+	return "Portfolio [id=" + idportfolio + ", gain=" + gain + ", risk=" + risk
+	+ ", amount=" + amount +",client=" +Clients+ "]";
 	}
 // private Set<Feedback> Feedbacks;
-	public void addFeedabck(Feedback fe){
-		this.Feedbacks.add(fe);
-	}
+	
 }

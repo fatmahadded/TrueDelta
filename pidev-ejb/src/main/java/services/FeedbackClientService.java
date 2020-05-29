@@ -22,15 +22,13 @@ public class FeedbackClientService implements FeedbackClient {
 	EntityManager em;
 
 	@Override
-	public int addFeedback(int portfolioId, Feedback feed) {
-		Portfolio p = em.find(Portfolio.class, portfolioId);
+	public int addFeedback(int idportfolio, Feedback feedback) {
+		Portfolio p = em.find(Portfolio.class, idportfolio);
 		p.setFeedbacks(new HashSet<Feedback>());
-		p.addFeedBack(feed);
-		feed.setPortfolios(p);
-		em.persist(feed);
-		return feed.getId();
-
-	}
+		p.addFeedBack(feedback);
+		feedback.setPortfolios(p);
+		em.persist(feedback);
+		return feedback.getId();}
 
 	@Override
 	public int updateFeedback(Feedback feed) {
@@ -43,18 +41,26 @@ public class FeedbackClientService implements FeedbackClient {
 	}
 
 	@Override
-	public Feedback getFeedback(int feedId) {
-		Feedback feed = em.find(Feedback.class, feedId);
+	public Feedback getFeedback(int idfeedback) {
+		Feedback feed = em.find(Feedback.class, idfeedback);
 		return feed;
 
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Feedback> getPortfolioFeedbacks(int portfolioId) {
-		Query feedbacks = em.createQuery("select f from Feedback f where f.Portfolio.id = :portfolioId").setParameter("portfolio_id",portfolioId);
+	public List<Feedback> getPortfolioFeedbacks(int idportfolio) {
+		Query feedbacks = em.createQuery("select f from Feedback f where f.Portfolio.id = :idportfolio").setParameter("portfolio_id",idportfolio);
 		return feedbacks.getResultList();
 
+	}
+
+	@Override
+	public void ajouterFeedback(Feedback feedback) {
+		em.persist(feedback);
+		
+		//return feedback.getId();
 	}
 
 }

@@ -13,8 +13,8 @@ import Entities.Client;
 @Remote
 public interface IContracthomeServiceRemote{
 	
-public void ajouterContract(Contract contract);
-public void affecterContratAClient(int idcontract, int id);
+public int ajouterContract(Contract contract);
+public void affecterContratAClient(int idcontract, int idclient);
 
 public void removeContract(int idcontract);
 public void updateContract(Contract newContract);
@@ -22,13 +22,12 @@ public void updateContract(Contract newContract);
 public Contract findContractById(int idcontract);
 public List<Contract> findAllContracths();
 
-public List<Contract> findAllContractsbyclient(int id);
+public List<Contract> findAllContractsbyclient(int idclient);
 
 public long getNombreContractJPQL() ;
 
-public float getPrimeByClientIdJPQL(int id) ;
+public float getPrimeByClientIdJPQL(int idclient) ;
 	
-public float getCommisionByClientIdJPQL(int id) ;
 
 //public long calculerNbrTitres(int idClient); 
 }

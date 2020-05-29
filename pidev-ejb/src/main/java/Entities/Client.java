@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import Entities.User;
 import Entities.Contract;
 
 
@@ -28,7 +27,7 @@ public class Client implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name = "IdClient")
-private int id; // Clé primaire
+private int idclient; // Clé primaire
 @Column(name = "First_Name_Client")
 private String firstname;
 @Column(name = "Last_Name_Client")
@@ -43,16 +42,17 @@ private Boolean isActif;
 	
 //relation
 
-@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
+@OneToMany(mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE},
             fetch=FetchType.EAGER)
 private Set<Portfolio> Portfolios;	        
+
 
 @OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
  private Set<BankAccount> BankAccounts;
 
-@OneToMany(cascade = CascadeType.ALL, mappedBy="Client")
-private Set<Contract> Contracts;
-	
+//@OneToMany(cascade = CascadeType.ALL,mappedBy="Clients")
+//private Set<Contract> Contracts;
+
 	
 
 //constructeur
@@ -64,22 +64,19 @@ public Client(String lastname, String firstname, String email, String password, 
 	this.password=password;
 	this.setIsActif(isActif);}
 
-public Client(int id,String lastname, String firstname, String email, String password,  Boolean isActif) {
-	this.id=id;
+public Client(int idclient,String lastname, String firstname, String email, String password,  Boolean isActif) {
+	this.idclient=idclient;
 	this.lastname=lastname;
 	this.firstname=firstname;
 	this.email=email;
 	this.password=password;
 	this.setIsActif(isActif);}
 
-
+// getter setter cle
 public int getId() {
-	return id;
-}
-
-public void setId( int id) {
-		this.id = id;
-	}
+return idclient;}
+public void setId( int idclient) {
+this.idclient = idclient;}
 public String getEmail() {return email;}
 public void setEmail(String adresseMail){this.email = adresseMail;} 
 public String getFirstname() {return firstname;}
@@ -88,22 +85,19 @@ public String getLastname() {return lastname;}
 public void setLastname(String lastname) {this.lastname = lastname;}
 public String getPassword() {return password;	}
 public void setPassword(String password) {this.password = password;}
-
 public Boolean getIsActif() {
-	return isActif;
-}
+return isActif;}
 public void setIsActif(Boolean isActif) {
-	this.isActif = isActif;
-}
+	this.isActif = isActif;}
 
 
-	
-	public Set<Contract> getContracts() {
-		return Contracts;
-	}
-	public void setContracts(Set<Contract> contracts) {
-		Contracts = contracts;
-	}
+	//getter et setter relation
+	//public Set<Contract> getContracts() {
+	//	return Contracts;
+	//}
+//	public void setContracts(Set<Contract> contracts) {
+		//Contracts = contracts;
+	//}
 	
 	
 	public Set<Portfolio> getPortfolios() {
@@ -121,27 +115,22 @@ public void setIsActif(Boolean isActif) {
 	public void setBankAccounts(Set<BankAccount> bankAccounts) {
 		BankAccounts = bankAccounts;
 	}
-
+	
 
     
-	
-
-
-	
-
-	//@Override
-	//public String toString() {
-		//return "Client [IdClient=" +id+ ", AdressMail=" + email + ", Lastname=" + lastname+ ", Firstname" + firstname +
-				 //", Password=" + password + ", Image=" + image +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
-	//}
+@Override
+	public String toString() {
+		return "Client [IdClient=" +idclient+ ", AdressMail=" + email + ", Lastname=" + lastname+ ", Firstname" + firstname +
+				 ", Password=" + password +"]";
+	}
 
 public void addBankAccount(BankAccount ba){
 		ba.setClients(this);
 		this.BankAccounts.add(ba);
 	}
-public void addContract(Contract cn){
-	this.Contracts.add(cn);
-}
+//public void addContract(Contract contract){
+	//this.Contracts.add(contract);
+//}
 
 
 	

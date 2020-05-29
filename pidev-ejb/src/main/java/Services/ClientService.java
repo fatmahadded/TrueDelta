@@ -39,20 +39,24 @@ public class ClientService implements IClientInterfaceRemote {
 	}
 
 	@Override
-	public void removeClient(int id) {
+	public void removeClient(int idclient) {
 		System.out.println("In remove Client : ");
-		em.remove(em.find(Client.class, id));
+		em.remove(em.find(Client.class, idclient));
 		System.out.println("Out of remove Client : ");
 		
 	}
 
 	@Override
-	public void ajouterClient(Client client) {
-		em.persist(client);		
-	}
+	public int ajouterClient(Client client) {
+		System.out.println("Add Client : ");
+		em.persist(client);
+		System.out.println("Client Added : ");
+		return client.getId();
+		}
+
 
 	@Override
-	public void updateClient(Client client) {
+	public int updateClient(Client client) {
 		System.out.println("In update User Client : ");
 		Client cc = em.find(Client.class,client.getId());
 		cc.setFirstname(client.getFirstname());
@@ -62,14 +66,14 @@ public class ClientService implements IClientInterfaceRemote {
 		cc.setIsActif(client.getIsActif());
 		System.out.println("Out of update User Client : ");
 		
+		return client.getId();
 	}
 
 	@Override
-	public Client findClientById(int id) {
-		System.out.println("In findClientById : ");
-		Client user = em.find(Client.class, id);
-		System.out.println("Out of findClientById : ");
-		return user;
+	public Client findClientById(int idclient) {
+		Client clc = em.find(Client.class, idclient);
+		if(clc==null) throw new RuntimeException("client introuvable !");
+		return clc;
 	}
 
 	@Override

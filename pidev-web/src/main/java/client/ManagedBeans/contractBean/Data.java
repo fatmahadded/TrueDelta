@@ -1,6 +1,7 @@
 package client.ManagedBeans.contractBean;
 
-import Entities.*;
+import Entities.Choix;
+import Entities.Type;
 import java.io.Serializable;
 
 import javax.faces.bean.*;
@@ -10,6 +11,8 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class Data implements Serializable {
 private static final long serialVersionUID = 1L;
-public type_contract[] gettypes_contracts() 
-{ return type_contract.values(); }
+public Type[] getTypes() { return Type.values(); }
+public Choix[] getChoixs() { return Choix.values(); }
+
+
 }

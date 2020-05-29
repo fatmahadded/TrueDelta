@@ -9,16 +9,15 @@ import Entities.Portfolio;
 
 @Remote 
 public interface ClientAccbankRemote {
-	public void addBankAccount(BankAccount ba);
-	 public void removeBankAccountById(int idba);
-	 public BankAccount findBankAccountById (int idba);
-	 public BankAccount getaccountbankByDepatement(String departement);
-	 public List<BankAccount> findAllBankAccounts(); 
-	 public void updateAccountBank(BankAccount userNewValues);
+	public void ajouterBankAccount(BankAccount ba);
+	public BankAccount findBankAccountById (int id);
+	public BankAccount getaccountbankByDepatement(String departement);
+	public List<BankAccount> findAllBankAccounts(); 
+	public void updateAccountBank(BankAccount baNewValues);
 	
 	public List<String> getAllDepartementNamesOfAccountBankByClient(int id) ;
 
-	public float getRibyClientIdJPQL(int idclient) ;
+	public float getRibyClientIdJPQL(int id) ;
 			
 	 //public void affecterBankAccountClient(int idba, int idclient);
 }

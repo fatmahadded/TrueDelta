@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "BankAccount")
 public class BankAccount implements Serializable {
@@ -25,14 +26,9 @@ public class BankAccount implements Serializable {
 		this.departement = departement;
 		
 	}
-	
-	public BankAccount(int id, String rib, double montant, String departement) {
-       this.id= id;
-		this.rib = rib;
-		this.montant = montant;
-		this.departement = departement;
+	public BankAccount() {}
 		
-	}
+	
 	public BankAccount( int id,double montant) {
 		this.id= id;
 		this.montant = montant;

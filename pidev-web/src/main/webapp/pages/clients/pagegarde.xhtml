@@ -12,12 +12,12 @@
 <!-- Partie Bonjour  -->
 <h:panelGroup>
 <h:form>
-<h:outputText value="vous êtes le bienvenu #{loginBeann.client.lastname} #{loginBean.client.firstname}" /> | 
-<h:commandLink value="Déconnexion" action="#{loginBeann.doLogout()}" />
+<h:outputText value="vous êtes le bienvenu #{loginBean.client.lastname} #{loginBean.client.firstname}" /> | 
+<h:commandLink value="Déconnexion" action="#{loginBean.doLogout()}" />
 </h:form>
 </h:panelGroup>
 
-<!-- Partie Ajout d'un emloye -->
+<!-- Partie Ajout d'un client -->
 <h1>Client</h1>
 <h:panelGroup columns="2">
 <h:form>
@@ -50,7 +50,7 @@
 <!-- Partie Recuperation des clients-->
 <h:panelGroup columns="2">
 <h:form>
-<h:dataTable value="#{clientBean.employes}" var="client" border="1">
+<h:dataTable value="#{clientBean.clients}" var="client" border="1">
 
 <h:column><f:facet name="header"><h:outputText value="Login" /></f:facet>
 <h:outputText value="#{client.email}" /></h:column>
