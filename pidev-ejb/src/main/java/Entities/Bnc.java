@@ -1,20 +1,19 @@
 package Entities;
 
-import java.beans.Transient;
-import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "bnc")
 public class Bnc implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; // Clé primaire
@@ -23,10 +22,7 @@ public class Bnc implements Serializable {
 	private String agence;
 	private String iban;
 	private Double montant;
-	
-@OneToMany(cascade = CascadeType.ALL, mappedBy="Bank")
-	
-	private Set<BankAccount> BankAccounts;
+
 	
 	public Bnc() {}
 	
@@ -66,17 +62,4 @@ public class Bnc implements Serializable {
 	public void setMontant(Double montant) {
 		this.montant = montant;
 	}
-
-	@Transient
-	public Set<BankAccount> getBankAccounts() {
-		return BankAccounts;
-	}
-
-	public void setBankAccounts(Set<BankAccount> bankAccounts) {
-		BankAccounts = bankAccounts;
-	}
-	
-	
-	
-
 }

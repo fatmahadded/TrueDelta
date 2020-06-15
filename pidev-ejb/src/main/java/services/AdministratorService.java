@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.ejb.LocalBean;
@@ -14,14 +16,18 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import Entities.AssetManager;
 import Entities.Bank;
 import Entities.Bnc;
+import Entities.Client;
+import Entities.Portfolio;
 import interfaces.AdministratorServiceLocal;
 import interfaces.AdministratorServiceRemote;
 
 @Stateless
 @LocalBean
 public class AdministratorService implements AdministratorServiceRemote, AdministratorServiceLocal {
+
 	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
 
@@ -39,14 +45,32 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 	public void update(Bank bank) {
 		em.merge(bank);
 	}
-	
+
 	@Override
 	public void deleteBankById(int id) {
 		Bank bank = em.find(Bank.class, id);
 		System.out.println("ID" + bank);
 		em.remove(bank);
 	}
-	
+
+	@Override
+	public int getNombrClient(String nom, String agence) {
+
+		// TODO Auto-generated method stub
+		List<Bank> query = em.createQuery("SELECT d FROM Bank d where d.nom=:nom and d.agence=:agence", Bank.class)
+				.setParameter("nom", nom).setParameter("agence", agence).getResultList();
+		Map<String, Integer> result = new HashMap<String, Integer>();
+		for (Bank p : query) {
+			result.compute(p.getNom() + "-" + p.getAgence(),
+					(nomBank, valeurMap) -> valeurMap == null ? p.getBankAccounts().size()
+							: valeurMap + p.getBankAccounts().size());
+			
+		}
+
+		return result.get(nom + "-" + agence).intValue();
+
+	}
+
 	@Override
 	public void deleteBank(Bank bank) {
 		if (!em.contains(bank)) {
@@ -81,19 +105,19 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 
 				if (counter != 1) {
 					String[] data = inputLine.split(Pattern.quote(","), 0);
-					System.out.println("hhhhh");
-					if ((data[0] != null ) && (data[1] != null) && (data[2].length() == 24) && (data[3] != null)) {
+					
+					if ((data[0] != null) && (data[1] != null) && (data[2].length() == 24) && (data[3] != null)) {
 						try {
-							TypedQuery<Bnc> query= em.createQuery("select I from Bnc I where I.iban=:iban", Bnc.class)
+							TypedQuery<Bnc> query = em.createQuery("select I from Bnc I where I.iban=:iban", Bnc.class)
 									.setParameter("iban", data[2]);
-							if (query.getResultList().size()>0) {
-								System.out.println("updatebase");
+							if (query.getResultList().size() > 0) {
+								
 								Bnc b = query.getSingleResult();
 								b.setMontant(Double.parseDouble(data[3]));
 
 							} else {
 								Bnc bnc = new Bnc();
-								System.out.println("base");
+								
 								bnc.setNom_bank(data[0]);
 								bnc.setAgence(data[1]);
 								bnc.setIban(data[2]);
@@ -116,12 +140,49 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void affecterClientToAsset(int idClient, int idAsset) {
+		
+		
+		Portfolio portfolio = new Portfolio();
+
+		Client client = em.find(Client.class, idClient);
+		AssetManager asset = em.find(AssetManager.class, idAsset);
+		 
+		 portfolio.setClient(client);
+		 
+		 portfolio.setAssetManager(asset);
+
+		em.persist(portfolio);
+	}
+	
+	@Override 
+	public int getIdClient(String iban)
+	{
+		TypedQuery<Integer> query = em.createQuery("SELECT B.idbankaccount FROM BankAccount B where B.rib=:iban",
+				Integer.class);
+		query.setParameter("iban", iban);
+		query.getSingleResult();
+		
+		return query.getSingleResult();
+		
+	}
+
+	@Override
+	public int getIdAsset(int IdClient) {
+		TypedQuery<Integer> query = em.createQuery("SELECT C.idAsset FROM  Client C where C.idclient=:IdClient",
+				Integer.class);
+		query.setParameter("IdClient", IdClient);
+		query.getSingleResult();
+		
+		return query.getSingleResult();		
+	}
 	
 	@Override
 	public List<Bank> getAllBank() {
 		List<Bank> bank = em.createQuery("Select b from Bank b", Bank.class).getResultList();
 		return bank;
 	}
-
 
 }

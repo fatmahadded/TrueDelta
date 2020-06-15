@@ -28,79 +28,72 @@ import interfaces.AdministratorServiceLocal;
 public class AdministratorControleur implements Serializable {
 	@Inject
 	AdministratorServiceLocal service;
-	
-	
-	/*@GET
-	@Path("rechercheiban/{ibn}")
-	    public Response rechercheIban(@PathParam("ibn") string ibn) {
-		boolean re;
-		re=service.findCount(ibn);
-		System.out.println("la reponse"+re);
-    }*/
-	
+
+	/*
+	 * @GET
+	 * 
+	 * @Path("rechercheiban/{ibn}") public Response rechercheIban(@PathParam("ibn")
+	 * string ibn) { boolean re; re=service.findCount(ibn);
+	 * System.out.println("la reponse"+re); }
+	 */
 
 	@GET
 	@Path("found/{nom_bank}/{iban}/{montant}")
-	public Response getAll(@PathParam("nom_bank") String nom_bank ,
-    		@PathParam("iban") String iban,
-    		@PathParam("montant") Double montant) {
-		
-		System.out.println("nombank "+iban);
-		
+	public Response getAll(@PathParam("nom_bank") String nom_bank, @PathParam("iban") String iban,
+			@PathParam("montant") Double montant) {
+
+		System.out.println("nombank " + iban);
+
 		Bnc bnc = service.recherche(nom_bank, iban, montant);
-		System.out.println("bnc " +bnc.getIban());
-		
-		if(montant<=bnc.getMontant())
-		{
-			
+		System.out.println("bnc " + bnc.getIban());
+
+		if (montant <= bnc.getMontant()) {
+
 			System.out.println("build");
 			return Response.ok(bnc).build();
-			
-		}
-		else {
+
+		} else {
 			System.out.println("bed");
 			return Response.status(Status.BAD_REQUEST).build();
 		}
-}
-			
-	
-		
-	
+	}
+
 	@POST
 	@Path("ajoute")
-    public Response create(Bank bank){
-        service.createBank(bank);
-        return Response.ok().build();
-    }
-	
-	 @DELETE
-	 @Path("suppeimer/{id}")
-	    public Response delete(@PathParam("id") int id) {
-	        Bank getBank = service.findById(id);
-	        
-	        service.deleteBank(getBank);
-	        
-	        return Response.ok().build();
-	    }
-	 
-	 @PUT
-	    @Path("miseajour/{id}")
-	    public Response update(@PathParam("id") int id, Bank bank) {
-	        Bank updateBank = service.findById(id);
+	public Response create(Bank bank) {
+		service.createBank(bank);
+		return Response.ok().build();
+	}
 
-	        updateBank.setNom(bank.getNom());;
-	        updateBank.setAgence(bank.getAgence());
-	        updateBank.setNbr(bank.getNbr());
-	        service.update(updateBank);
+	@DELETE
+	@Path("remove/{id}")
+	public Response delete(@PathParam("id") int id) {
+		Bank getBank = service.findById(id);
 
-	        return Response.ok().build();
-	    }
-	 @GET
-	 @Path("ajoutebase")
-	 public Response ajoutertobase()
-	 {
-		 service.importbase();
-		 return Response.ok().build();
-	 }
+		service.deleteBank(getBank);
+
+		return Response.ok().build();
+	}
+
+	@PUT
+	@Path("miseajour/{id}")
+	public Response update(@PathParam("id") int id, Bank bank) {
+		Bank updateBank = service.findById(id);
+
+		updateBank.setNom(bank.getNom());
+		;
+		updateBank.setAgence(bank.getAgence());
+		updateBank.setNbr(bank.getNbr());
+		service.update(updateBank);
+
+		return Response.ok().build();
+	}
+
+	@GET
+	@Path("ajoutebase")
+	public Response ajoutertobase() {
+		service.importbase();
+		return Response.ok().build();
+	}
 
 }
