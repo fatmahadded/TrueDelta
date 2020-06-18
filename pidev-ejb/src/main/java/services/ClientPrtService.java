@@ -74,7 +74,7 @@ public class ClientPrtService implements ClientPrtServiceRemote {
 		client.setUsername(clientnewvalues.getUsername());
 		client.setLastname(clientnewvalues.getLastname());
 		client.setPassword(clientnewvalues.getPassword());
-		client.setImage(clientnewvalues.getImage());
+		client.setIdAsset(clientnewvalues.getIdAsset());
 		System.out.println("Out of updateClient :");
 		
 		

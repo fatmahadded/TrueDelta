@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+		<h:panelGroup columns="2">
+			<h:form>
+				<h1>
+					<i class="metismenu-icon pe-7s-file"></i>Import Database of Banks
+
+				</h1>
+				<p:messages id="messages" showDetail="true" closable="true">
+				</p:messages>
+				<p:growl id="msgs" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+
+				<p:panel id="basic" header="" style="margin-bottom:20px">
+					<h:panelGrid columns="2" cellpadding="10">
+						<h:outputText value="updating the bank database" />
+						<br />
+						<h:commandButton value="Import/Update Base"
+							class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav "
+							action="#{gestionClientBean.importBaseBank()}"></h:commandButton>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</h:panelGroup>
+
+		<h:panelGroup columns="2">
+			<h:form>
+				<h1>
+					<i class="metismenu-icon pe-7s-refresh"></i>Check Customer Data
+				</h1>
+				<p:messages id="messages" showDetail="true" closable="true">
+				</p:messages>
+				<p:growl id="msgs" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+
+				<p:panel id="basic" header="" style="margin-bottom:20px">
+					<h:panelGrid columns="2" cellpadding="10">
+						<table>
+							<tr>
+								<td><h:outputText value="Name Bank: *"></h:outputText></td>
+								<td><h:inputText value="#{gestionClientBean.nomBank}"></h:inputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="IBAN: *"></h:outputText></td>
+								<td><h:inputText value="#{gestionClientBean.iban}"></h:inputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Amount: *"></h:outputText></td>
+								<td><h:inputText value="#{gestionClientBean.montant}"></h:inputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="--" /></td>
+							</tr>
+							<tr>
+								<td colspan="2"><h:commandButton value="Check"
+										class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav"
+										action="#{gestionClientBean.verifierCompte(gestionClientBean.iban)}" /></td>
+							</tr>
+						</table>
+					</h:panelGrid>
+				</p:panel>
+				<h:commandLink class="metismenu-icon pe-7s-back"
+					action="#{gestionBankBean.retour()}" />
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
