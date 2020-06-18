@@ -12,8 +12,9 @@ public class User implements Serializable{
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 	private String username;
+	private String mail;
 	private String password;
-	private String role;
+	private Role role;
 	
 	
 	public User(String username, String password) {
@@ -39,12 +40,19 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	
 	
 	
 }

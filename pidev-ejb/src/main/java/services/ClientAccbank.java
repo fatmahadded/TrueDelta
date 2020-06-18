@@ -66,7 +66,7 @@ public class ClientAccbank implements ClientAccbankRemote {
 	@Override
 	public String getBankAccountBankDepartmentById(int idclient) {
 		BankAccount ba = em.find(BankAccount.class, idclient);
-		return "le departement du compte bancaire est: " + ba.getDepartement();
+		return "le departement du compte bancaire est: " + ba.getNom();
 	}
 
 	@Override

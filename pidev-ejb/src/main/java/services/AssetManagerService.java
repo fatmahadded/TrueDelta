@@ -90,7 +90,16 @@ public class AssetManagerService implements AssetManagerRemote {
 		float A = (float) ((asset.getClose() - asset.getOpen()) * (trans.getQuantite()));
 		// asset.setValue(A);
 		return A;
+	}
+	// Calcul Montant
 
+	public float CalculDuMontantDesActions(int idAsset, int idTrans) {
+
+		Asset asset = em.find(Asset.class, idAsset);
+		Transaction trans = em.find(Transaction.class, idTrans);
+
+		float Montant = (float) (asset.getHigh() * trans.getQuantite());
+		return Montant;
 	}
 
 }

@@ -13,19 +13,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BankAccount")
 public class BankAccount implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	public BankAccount(int idbankaccount, String rib, double montant, String departement) {
-		super();
-		this.idbankaccount= idbankaccount;
-		this.rib = rib;
-		this.montant = montant;
-		this.departement = departement;
-		
-	}
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +24,10 @@ public class BankAccount implements Serializable {
 	private String rib;
 	@Column(name = "Montant")
 	private double montant;
-	@Column(name = "Departement")
-	private String departement;
+	@Column(name = "agence")
+	private String agence;
+	@Column(name = "nomBank")
+	private String nom;
 
 	@ManyToOne
 	Client Clients;
@@ -44,11 +35,17 @@ public class BankAccount implements Serializable {
 	@ManyToOne
 	Bank Bank;
 	
-	@ManyToOne
-	Bank Bnc;
-	
-	
 	public BankAccount() {}
+	
+	public BankAccount(int idbankaccount, String rib, double montant, String agence,String nom) {
+		super();
+		this.idbankaccount= idbankaccount;
+		this.rib = rib;
+		this.montant = montant;
+		this.agence = agence;
+		this.nom = nom;
+		
+	}
 
 	public int getIdBankAccount() {
 		return idbankaccount;
@@ -66,15 +63,28 @@ public class BankAccount implements Serializable {
 		this.rib = rib;
 	}
 
-	
-		
-	
-	public String getDepartement() {
-		return departement;
+	public int getIdbankaccount() {
+		return idbankaccount;
 	}
 
-	public void setDepartement(String departement) {
-		this.departement = departement;
+	public void setIdbankaccount(int idbankaccount) {
+		this.idbankaccount = idbankaccount;
+	}
+
+	public String getAgence() {
+		return agence;
+	}
+
+	public void setAgence(String agence) {
+		this.agence = agence;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public Client getClients() {
@@ -100,13 +110,4 @@ public class BankAccount implements Serializable {
 	public void setMontant(double montant) {
 		this.montant = montant;
 	}
-
-	public Bank getBnc() {
-		return Bnc;
-	}
-
-	public void setBnc(Bank bnc) {
-		Bnc = bnc;
-	}
-	
 }

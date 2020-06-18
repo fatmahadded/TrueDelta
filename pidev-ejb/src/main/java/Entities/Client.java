@@ -38,8 +38,8 @@ public class Client implements Serializable {
 	private String lastname;
 	@Column(name = "Password")
 	private String password;
-	@Column(name = "Image")
-	private String image;
+	@Column(name = "IdAsst")
+	private int idAsset;
 	
 	@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
             fetch=FetchType.EAGER)
@@ -90,15 +90,12 @@ public class Client implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getImage() {
-		return image;
+	public int getIdAsset() {
+		return idAsset;
 	}
-
-	public void setImage(String image) {
-		this.image = image;
+	public void setIdAsset(int idAsset) {
+		this.idAsset = idAsset;
 	}
-
 	public Set<Portfolio> getPortfolios() {
 		return Portfolios;
 	}
@@ -120,7 +117,7 @@ public class Client implements Serializable {
 	@Override
 	public String toString() {
 		return "Client [idClient=" + idclient + ", Username=" + username + ", Lastname=" + lastname+ ", Firstname" + firstname +
-				 ", Password=" + password + ", Image=" + image +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
+				 ", Password=" + password + ", Image=" + idAsset +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
 	}
 
 
@@ -137,14 +134,14 @@ public class Client implements Serializable {
 
 	//constructeur
 	public Client() {}
-	public Client( String username, String firstname, String lastname, String password, String image,Set<Portfolio> portfolios,Set<BankAccount> bankAccounts) {
+	public Client( String username, String firstname, String lastname, String password, int idasset,Set<Portfolio> portfolios,Set<BankAccount> bankAccounts) {
 		super();
 		
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
-		this.image = image;
+		this.idAsset = idasset;
 		Portfolios = portfolios;
 		BankAccounts= bankAccounts;
 		

@@ -19,8 +19,8 @@ import services.AssetManagerService;
 
 public class AssetManagerRest {
 
-	@EJB
-	AssetManagerService Am;
+	@Inject
+	AssetManagerRemote Am;
 
 	@Path("/AddAssetManager")
 	@POST
@@ -30,33 +30,31 @@ public class AssetManagerRest {
 		Am.addAssetManager(assetMan);
 		return Response.ok("added asset manager").build();
 	}
-	
-	
-	@POST
-    @Path("/editEtatAm/{IdAssetManager}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response editAssetManager(@PathParam("IdAssetManager") int idAssetManager) {
-		
-    	Am.updateEtatAssetManager(idAssetManager);
-        return Response.ok(Am.getAssetManagerById(idAssetManager)).build();
 
-    	//return Response.ok(cols.findAllCollection()).build();
-    }
-	
-	
-	
+	@POST
+	@Path("/editEtatAm/{IdAssetManager}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response editAssetManager(@PathParam("IdAssetManager") int idAssetManager) {
+
+		Am.updateEtatAssetManager(idAssetManager);
+		return Response.ok(Am.getAssetManagerById(idAssetManager)).build();
+
+		// return Response.ok(cols.findAllCollection()).build();
+	}
 
 	@GET
 	@Path("/AssetManagerByEtat")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAssetManagerByEtat() {
 		return Response.ok(Am.GetAllAssetManagerByEtat()).build();
-		
 
 	}
+
 	@GET
 	@Path("CalculPValue/{idAsset}/{idTrans}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response CalculDuPvalueAuCoursDelajournée(@PathParam("idAsset") int idAsset,@PathParam("idTrans") int idTrans) {
-		return Response.ok(Am.CalculDuPvalueAuCoursDelajournée(idAsset,idTrans)).build();
-}            }
+	public Response CalculDuPvalueAuCoursDelajournée(@PathParam("idAsset") int idAsset,
+			@PathParam("idTrans") int idTrans) {
+		return Response.ok(Am.CalculDuPvalueAuCoursDelajournée(idAsset, idTrans)).build();
+	}
+}

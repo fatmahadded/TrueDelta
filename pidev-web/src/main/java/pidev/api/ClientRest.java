@@ -20,17 +20,17 @@ import services.ClientPrtService;
 
 @Path("/Client")
 
-public class ClientRest  {
+public class ClientRest {
 
-	@EJB
-	ClientPrtService cp;
+	@Inject
+	ClientPrtServiceRemote cp;
+
 	@Path("/addClient")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	
+
 	public Response addClient(Client client) {
 		cp.addClient(client);
-		return Response.ok("added client").build();}
+		return Response.ok("added client").build();
+	}
 }
-	
-	

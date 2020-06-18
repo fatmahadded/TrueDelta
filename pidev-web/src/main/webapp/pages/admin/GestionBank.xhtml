@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+
+	<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	display: none;
+}
+</style>
+
+
+	<ui:define name="content">
+		<h:panelGroup id="panel" columns="2">
+			<h:form>
+				<h1>
+					<i class="metismenu-icon pe-7s-plus"></i>Add bank
+				</h1>
+				<p:messages id="messages" showDetail="true" closable="true">
+				</p:messages>
+				<p:growl id="msgs" showDetail="true"
+					skipDetailIfEqualsSummary="true" />
+
+				<p:panel id="basic" header="" style="margin-bottom:20px">
+					<h:panelGrid columns="2" cellpadding="10">
+						<table>
+
+							<tr>
+								<td><h:outputText value="Name: *"></h:outputText></td>
+								<td><h:inputText value="#{gestionBankBean.nom}"
+										required="true"></h:inputText></td>
+							</tr>
+
+							<tr>
+								<td><h:outputText value="Agency: *"></h:outputText></td>
+								<td><h:inputText value="#{gestionBankBean.agence}"
+										required="true"></h:inputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="--" /></td>
+							</tr>
+
+							<tr>
+								<td colspan="2"><h:commandButton value="Add"
+										class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav "
+										action="#{gestionBankBean.addBank()}" /></td>
+							</tr>
+						</table>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</h:panelGroup>
+
+		<h:panelGroup columns="2">
+			<h:form>
+				<h1>
+					<i class="metismenu-icon pe-7s-note2"></i>List of registered banks
+				</h1>
+				<p:dataTable var="bank" value="#{gestionBankBean.banks}"
+					widgetVar="carsTable" multiViewState="true" rows="10"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" selectionMode="single"
+					selection="#{gestionBankBean.selectedBank}" rowKey="#{bank.id}"
+					emptyMessage="No agency bank found "
+					filteredValue="#{gestionBankBean.filteredBank}">
+					<p:column headerText="Id">
+						<h:outputText value="#{bank.id}" />
+					</p:column>
+					<p:column headerText="Name" filterBy="#{bank.nom}">
+						<h:outputText value="#{bank.nom}" />
+					</p:column>
+					<p:column headerText="Agency" filterBy="#{bank.agence}">
+						<h:outputText value="#{bank.agence}" />
+					</p:column>
+					<p:column headerText="Customer Number">
+						<h:outputText
+							value="#{gestionBankBean.CountClient(bank.nom, bank.agence)}" />
+					</p:column>
+					<p:column headerText="Action">
+						<h:commandButton action="#{gestionBankBean.removeBank(bank.id)}"
+							class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav "
+							value="Remove" />
+					</p:column>
+				</p:dataTable>
+				<h:commandLink class="metismenu-icon pe-7s-back"
+					action="#{gestionBankBean.retour()}" />
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

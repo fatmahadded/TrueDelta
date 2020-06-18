@@ -77,12 +77,14 @@ public class FirmLocalService implements IFirmLocalService {
 						 * Status 5 : Round Lot Size 6 : ETF 7 : NextShares
 						 */
 						String[] data = inputLine.split(Pattern.quote("|"), 0);
-						List<Firm> existingFirm = em.createQuery("SELECT f FROM Firm f WHERE (0 < LOCATE(:symbol, f.symbol))", Firm.class).setParameter("symbol", data[0]).getResultList();
-						if(existingFirm.size()==0) {
+						List<Firm> existingFirm = em
+								.createQuery("SELECT f FROM Firm f WHERE (0 < LOCATE(:symbol, f.symbol))", Firm.class)
+								.setParameter("symbol", data[0]).getResultList();
+						if (existingFirm.size() == 0) {
 							Firm firm = new Firm(data[0], data[1]);
 							em.persist(firm);
 						}
-						
+
 					}
 				}
 				input.close();
@@ -102,13 +104,15 @@ public class FirmLocalService implements IFirmLocalService {
 						 * Round Lot Size 6 : Test Issue 7 : NASDAQ Symbol
 						 */
 						String[] data = inputLine.split(Pattern.quote("|"), 0);
-						List<Firm> existingFirm = em.createQuery("SELECT f FROM Firm f WHERE (0 < LOCATE(:symbol, f.symbol))", Firm.class).setParameter("symbol", data[7]).getResultList();
+						List<Firm> existingFirm = em
+								.createQuery("SELECT f FROM Firm f WHERE (0 < LOCATE(:symbol, f.symbol))", Firm.class)
+								.setParameter("symbol", data[7]).getResultList();
 
-						if(existingFirm.size()==0) {
+						if (existingFirm.size() == 0) {
 							Firm firm = new Firm(data[7], data[1]);
 							em.persist(firm);
 						}
-						
+
 					}
 				}
 				input.close();
@@ -122,7 +126,7 @@ public class FirmLocalService implements IFirmLocalService {
 			// e.printStackTrace();
 		} catch (Exception e) {
 			System.out.println("General Exception!!!");
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 	}
@@ -137,7 +141,7 @@ public class FirmLocalService implements IFirmLocalService {
 	public void fetchHistory() {
 		TypedQuery<Firm> query = em.createQuery("select f from Firm f", Firm.class);
 		List<Firm> firms = (List<Firm>) query.setMaxResults(3).getResultList(); // For test purposes, just 3 firms is
-																					// enough
+																				// enough
 		this.getHistoricalDataBySymbol(firms);
 		/*
 		 * Timer timer = new Timer(); CronTask task = new CronTask();
@@ -173,8 +177,11 @@ public class FirmLocalService implements IFirmLocalService {
 						String[] data = s.replaceAll("\\s{2,}", ",").split(",");
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 						Date date = format.parse(data[0]);
-						List<Asset> existingAsset = em.createQuery("SELECT a FROM Asset a WHERE (0 < LOCATE(:symbol, a.firm.symbol)) AND (0 < LOCATE(:date, a.date))",Asset.class).setParameter("symbol", firm.getSymbol()).setParameter("date", date).getResultList();
-						if(existingAsset.size()==0) {
+						List<Asset> existingAsset = em.createQuery(
+								"SELECT a FROM Asset a WHERE (0 < LOCATE(:symbol, a.firm.symbol)) AND (0 < LOCATE(:date, a.date))",
+								Asset.class).setParameter("symbol", firm.getSymbol()).setParameter("date", date)
+								.getResultList();
+						if (existingAsset.size() == 0) {
 							Asset newEntry = new Asset(date, Double.parseDouble(data[1]), Double.parseDouble(data[2]),
 									Double.parseDouble(data[3]), Double.parseDouble(data[4]), Long.parseLong(data[5]),
 									Double.parseDouble(data[6]), Double.parseDouble(data[7]));
@@ -182,7 +189,7 @@ public class FirmLocalService implements IFirmLocalService {
 							em.persist(newEntry);
 							em.flush();
 						}
-						
+
 					}
 				}
 				in.close();
@@ -195,7 +202,8 @@ public class FirmLocalService implements IFirmLocalService {
 
 	@Override
 	public List<Asset> getHistory(int limit) {
-		List<Asset> list = em.createQuery("select h from Asset h order by h.date DESC", Asset.class).setMaxResults(limit).getResultList();
+		List<Asset> list = em.createQuery("select h from Asset h order by h.date DESC", Asset.class)
+				.setMaxResults(limit).getResultList();
 		return list;
 	}
 
@@ -274,7 +282,8 @@ public class FirmLocalService implements IFirmLocalService {
 			Firm firm = em.createQuery("select f from Firm f where id=:id", Firm.class).setParameter("id", company_id)
 					.getSingleResult();
 			if (firm != null && firm.getSymbol() != null) {
-				List<Asset> records = em.createQuery("select r from Asset r where r.firm=:firm order by r.date DESC", Asset.class)
+				List<Asset> records = em
+						.createQuery("select r from Asset r where r.firm=:firm order by r.date DESC", Asset.class)
 						.setParameter("firm", firm).setMaxResults(100).getResultList();
 				return records;
 			}
