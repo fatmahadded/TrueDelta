@@ -1,6 +1,7 @@
 package pidev.api;
 
 import javax.ejb.EJB;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -16,11 +17,11 @@ import interfaces.AssetManagerRemote;
 import services.AssetManagerService;
 
 @Path("/AssetManager")
-
+@RequestScoped
 public class AssetManagerRest {
 
-	@Inject
-	AssetManagerRemote Am;
+	@EJB
+	AssetManagerService Am;
 
 	@Path("/AddAssetManager")
 	@POST

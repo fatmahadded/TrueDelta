@@ -7,11 +7,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import Entities.Bnc;
+import interfaces.AdministratorServiceLocal;
 import services.AdministratorService;
 
-@ManagedBean()
+@ManagedBean(name="gestionClientBean")
 @SessionScoped
 public class GestionClientBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,10 +25,13 @@ public class GestionClientBean implements Serializable {
 	private int idAsset;
 
 
-	@EJB
-	AdministratorService adminservice;
+	/*@EJB
+	AdministratorService adminservice;*/
 
-	public AdministratorService getAdminservice() {
+	@Inject
+	AdministratorServiceLocal adminservice;
+	
+	public AdministratorServiceLocal getAdminservice() {
 		return adminservice;
 	}
 

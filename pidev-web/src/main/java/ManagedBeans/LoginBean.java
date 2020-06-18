@@ -6,9 +6,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import Entities.Role;
 import Entities.User;
+import interfaces.AdministratorServiceLocal;
 import services.AdministratorService;
 
 
@@ -26,9 +28,10 @@ public class LoginBean implements Serializable {
 	
 	
 
-	@EJB
-	AdministratorService AdminService;
-
+	/*@EJB
+	AdministratorService AdminService;*/
+	@Inject
+	AdministratorServiceLocal adminservice;
 	/*
 	 * public String doLogin() { String navigateTo = "null"; user =
 	 * AdminService.getUserByEmailAndPassword(login, password); if (user != null &&
@@ -83,13 +86,6 @@ public class LoginBean implements Serializable {
 		this.mot = mot;
 	}
 
-	public AdministratorService getAdminService() {
-		return AdminService;
-	}
-
-	public void setAdminService(AdministratorService adminService) {
-		AdminService = adminService;
-	}
 
 
 

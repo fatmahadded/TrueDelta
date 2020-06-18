@@ -8,13 +8,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import org.primefaces.model.menu.MenuModel;
 
 import Entities.Bank;
+import interfaces.AdministratorServiceLocal;
 import services.AdministratorService;
 
-@ManagedBean()
+@ManagedBean(name="gestionBankBean")
 @SessionScoped
 public class Gestionbankbean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +31,12 @@ public class Gestionbankbean implements Serializable {
 
 	private Bank selectedBank;
 
-	@EJB
-	AdministratorService adminservice;
+	/*@EJB
+	AdministratorService adminservice;*/
 
+	@Inject
+	AdministratorServiceLocal adminservice;
+	
 	public String getNom() {
 		return nom;
 	}
@@ -56,7 +61,7 @@ public class Gestionbankbean implements Serializable {
 		this.nbr = nbr;
 	}
 
-	public AdministratorService getAdminservice() {
+	public AdministratorServiceLocal getAdminservice() {
 		return adminservice;
 	}
 

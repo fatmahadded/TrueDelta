@@ -1,29 +1,30 @@
 package pidev.api;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import java.util.List;
-
 import Entities.Client;
-import Entities.Portfolio;
 import interfaces.ClientPrtServiceRemote;
 import services.ClientPrtService;
 
+@RequestScoped
 @Path("/Client")
+public class ClientRest implements Serializable{
 
-public class ClientRest {
-
-	@Inject
-	ClientPrtServiceRemote cp;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@EJB
+	ClientPrtService cp;
 
 	@Path("/addClient")
 	@POST
