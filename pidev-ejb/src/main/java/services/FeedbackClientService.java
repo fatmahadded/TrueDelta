@@ -10,20 +10,17 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-
 import Entities.AssetManager;
 import Entities.Client;
 import Entities.Feedback;
 import interfaces.FeedbackClient;
 
 @Stateless
-//@LocalBean
 public class FeedbackClientService implements FeedbackClient {
-	//imputation-ejb in persistence.xml
+	// imputation-ejb in persistence.xml
 	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
-	
-	
+
 	@Override
 	public Feedback addFeedback(long idFrom, long idTo, String message) {
 		Feedback feedback = new Feedback();
@@ -41,7 +38,7 @@ public class FeedbackClientService implements FeedbackClient {
 	@Override
 	public boolean removeFeedback(long idfeed) {
 		Feedback f = em.find(Feedback.class, idfeed);
-		if (f!=null) {
+		if (f != null) {
 			em.remove(f);
 			return true;
 		}
@@ -55,18 +52,16 @@ public class FeedbackClientService implements FeedbackClient {
 		return em.find(Feedback.class, feedback.getIdFeed());
 	}
 
-	
 	@Override
 	public Feedback getFeedbackById(long idfeed) {
-		return (Feedback) em.createQuery("SELECT f from Feedback f where f.idfeed = "+idfeed).getSingleResult();
+		return (Feedback) em.createQuery("SELECT f from Feedback f where f.idfeed = " + idfeed).getSingleResult();
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Feedback> getAll() {
-		return em.createQuery("SELECT f from Feedback f ")
-				.getResultList();
+		return em.createQuery("SELECT f from Feedback f ").getResultList();
 	}
 
 	@SuppressWarnings("unchecked")

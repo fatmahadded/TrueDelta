@@ -7,61 +7,38 @@
 	template="/WEB-INF/template/template.xhtml">
 
 	<ui:define name="content">
-		<h:panelGrid layout="grid" columns="2" style="width:100%">
-			<h:panelGroup style="text-align:right;float:right;" layout="block"
-				styleClass="card">
-				<h:graphicImage
-					style="width:50px;height:50px;display:inline-flex;vertical-align:middle;"
-					value="#{resource['images/firms.png']}" />
-
-				<h:outputText styleClass="stat"
-					value="#{dashboardBean.nbFirms/1000!=0?''.concat(dashboardBean.nbFirms/1000).concat('k'):dashboardBean.nbFirms}">
-				</h:outputText>
-				<h:outputText styleClass="label" value="Firms" />
-
-				<h:form id="fetchFirms">
-					<h:commandLink action="#{dashboardBean.fetchFirms()}">
-						<h:graphicImage styleClass="actionBtn"
-							value="#{resource['images/refresh.png']}" />
-					</h:commandLink>
-				</h:form>
+		<h:panelGrid columns="4">
+			<h:panelGroup layout="block" style="display:inline-grid;height:100%;"
+				styleClass="main-card mb-3 card">
+				<h:outputText style="font-size:24pt"
+					value="#{singleCompanyBean.selectedFirm.name}" />
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="card">
-				<h:graphicImage style="width:50px;height:50px;"
-					value="#{resource['images/records.png']}" />
-
-				<h:outputText styleClass="stat"
-					value="#{dashboardBean.records/1000!=0?''.concat(dashboardBean.records/1000).concat('k'):dashboardBean.records}" />
-				<h:outputText styleClass="label" value="Records" />
-				<h:form id="fetchRecords">
-					<h:commandLink action="#{dashboardBean.fetchRecords()}">
-						<h:graphicImage styleClass="actionBtn"
-							value="#{resource['images/refresh.png']}" />
-					</h:commandLink>
-				</h:form>
+			<h:panelGroup layout="block" styleClass="main-card mb-3 card">
+				<h:panelGroup style="color:green; margin: 10px;" columns="2">
+					<i style="font-size: 24pt" class="pe-7s-target"></i>
+				Return
+			</h:panelGroup>
+				<h:outputText style="font-size:24pt"
+					value="#{singleCompanyBean.estimation.Return}" />
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="main-card mb-3 card">
+				<h:panelGroup style="color:red; margin: 10px;" columns="2">
+					<i style="font-size: 24pt" class="pe-7s-way"></i>
+				Risk
+			</h:panelGroup>
+				<h:outputText style="font-size:24pt"
+					value="#{singleCompanyBean.estimation.Risk}" />
 			</h:panelGroup>
 		</h:panelGrid>
-		<h:panelGroup layout="block" styleClass="myCard">
-			<ct:chart style="" type="line"
-				model="#{lineChartBean.lineChartModel}" />
-		</h:panelGroup>
+
 
 		<h:panelGroup layout="block" styleClass="main-card mb-3 card">
 
 			<p:dataTable tableStyleClass="table table-bordered" var="asset"
-				selectionMode="single" selection="#{dashboardBean.selectedCompany}"
-				rowKey="#{asset.firm.id}" value="#{dashboardBean.assets}" rows="20"
-				paginator="true"
+				rows="50" paginator="true" value="#{singleCompanyBean.history}"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-				rowsPerPageTemplate="10,20,50" paginatorPosition="bottom">
-
-				<p:ajax event="rowSelect" listener="#{dashboardBean.onRowSelect}" />
-
-				<p:column style="vertical-align:middle;" width="150"
-					headerText="Financial Company">
-					<h:outputText style="border-color:none;" value="#{asset.firm.name}" />
-				</p:column>
+				rowsPerPageTemplate="25,50,100" paginatorPosition="bottom">
 
 				<p:column style="vertical-align:middle;" headerText="Date"
 					width="120">
@@ -96,7 +73,6 @@
 				</p:column>
 			</p:dataTable>
 		</h:panelGroup>
-
 	</ui:define>
 
 </ui:composition>

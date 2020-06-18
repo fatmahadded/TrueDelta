@@ -131,7 +131,7 @@
 		<dependency>
 			<groupId>org.chartistjsf</groupId>
 			<artifactId>ChartistJSF</artifactId>
-			<version>3.0</version>
+ 			<version>3.0</version>
 		</dependency>
 	</dependencies>
 

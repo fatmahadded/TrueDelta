@@ -1,6 +1,7 @@
 package pidev.api;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,13 +13,14 @@ import javax.ws.rs.core.Response;
 
 import Entities.AssetManager;
 import interfaces.AssetManagerRemote;
+import services.AssetManagerService;
 
 @Path("/AssetManager")
 
 public class AssetManagerRest {
 
 	@EJB
-	AssetManagerRemote Am;
+	AssetManagerService Am;
 
 	@Path("/AddAssetManager")
 	@POST

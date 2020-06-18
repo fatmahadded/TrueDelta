@@ -20,7 +20,6 @@ import interfaces.AdministratorServiceLocal;
 import interfaces.AdministratorServiceRemote;
 
 @Stateless
-@LocalBean
 public class AdministratorService implements AdministratorServiceRemote, AdministratorServiceLocal {
 	@PersistenceContext(unitName = "PiDbDS")
 	EntityManager em;
@@ -81,11 +80,11 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 				if (counter != 1) {
 					String[] data = inputLine.split(Pattern.quote(","), 0);
 					System.out.println("hhhhh");
-					if ((data[0] != null ) && (data[1] != null) && (data[2].length() == 24) && (data[3] != null)) {
+					if ((data[0] != null) && (data[1] != null) && (data[2].length() == 24) && (data[3] != null)) {
 						try {
-							TypedQuery<Bnc> query= em.createQuery("select I from Bnc I where I.iban=:iban", Bnc.class)
+							TypedQuery<Bnc> query = em.createQuery("select I from Bnc I where I.iban=:iban", Bnc.class)
 									.setParameter("iban", data[2]);
-							if (query.getResultList().size()>0) {
+							if (query.getResultList().size() > 0) {
 								System.out.println("updatebase");
 								Bnc b = query.getSingleResult();
 								b.setMontant(Double.parseDouble(data[3]));
@@ -115,7 +114,5 @@ public class AdministratorService implements AdministratorServiceRemote, Adminis
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 }

@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
 
 import Entities.Bank;
+import interfaces.AdministratorServiceLocal;
 import services.AdministratorService;
 
 @ManagedBean(name = "ajouterbankbean")
@@ -53,16 +55,16 @@ public class ajouterbankbean implements Serializable{
 		this.logo = logo;
 	}
 
-	public AdministratorService getAdminservice() {
+	public AdministratorServiceLocal getAdminservice() {
 		return adminservice;
 	}
 
-	public void setAdminservice(AdministratorService adminservice) {
+	public void setAdminservice(AdministratorServiceLocal adminservice) {
 		this.adminservice = adminservice;
 	}
 	
-	@EJB
-	AdministratorService adminservice;
+	@Inject
+	AdministratorServiceLocal adminservice;
 	
 	public void addBank() {
 		String navigateTo = "null";

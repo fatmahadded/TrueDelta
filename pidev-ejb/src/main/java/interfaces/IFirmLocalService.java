@@ -16,7 +16,7 @@ public interface IFirmLocalService {
 	public List<Asset> getHistoryByCompany(int company_id);
 	public void addHistoryEntry(Asset entry);
 	public List<Asset> getHistory(int limit);
-	public Map<String, Double> getExpectedReturnByCompany(String symbol);
+	public Map<String, Double> getExpectedReturnByCompany(String symbol, int quantity);
 	public Map<Object, Object> getEstimationByCompany();
 	public int getFirmCount();
 	public int getRecordsCount();

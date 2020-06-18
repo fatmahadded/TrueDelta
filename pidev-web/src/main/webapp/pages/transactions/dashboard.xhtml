@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ct="http://www.chartistjsf.org/charts"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+		<h:panelGroup layout="block" style="padding:100px">
+			<p:dataTable tableStyleClass="table table-bordered" var="transaction"
+				value="#{transactionsBean.transactions}" rows="20" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				rowsPerPageTemplate="10,20,50" paginatorPosition="bottom">
+
+				<p:column style="vertical-align:middle;" width="50" headerText="Id">
+					<h:outputText style="border-color:none;" value="#{transaction.id}" />
+				</p:column>
+
+				<p:column style="vertical-align:middle;" headerText="Amount"
+					width="100">
+					<h:outputText style="border-color:none;"
+						value="#{transaction.amount}" />
+				</p:column>
+
+				<p:column style="vertical-align:middle;" headerText="Quatity"
+					width="100">
+					<h:outputText style="border-color:none;"
+						value="#{transaction.quantite}" />
+				</p:column>
+
+				<p:column style="vertical-align:middle;" headerText="Actions"
+					width="100">
+					<p:commandButton update=":form"
+						oncomplete="PF('updateWidget').show()" value="Update Transaction">
+						<f:setPropertyActionListener value="#{transaction}"
+							target="#{transactionsBean.selectedTransaction}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:panelGroup>
+		<p:dialog header="Selected Cars" widgetVar="updateWidget"
+			showEffect="fade" hideEffect="fade" resizable="false" width="50%">
+			<h4>Update the selected Transaction:</h4>
+			<h:form id="form" style="margin-bottom:20px">
+				<h:panelGrid style="margin-bottom:20px" columns="2">
+					<p:outputLabel for="@next" value="Amount" />
+					<p:inputText id="amount" value="#{transactionsBean.amount}" />
+					<p:outputLabel for="@next" value="Quantity" />
+					<p:inputText id="quantity" value="#{transactionsBean.quantity}" />
+				</h:panelGrid>
+				<p:commandButton value="Save" update=":form" ajax="false"
+					partialSubmit="true" action="#{transactionsBean.update}"
+					oncomplete="PF('updateWidget').hide()" />
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>

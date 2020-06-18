@@ -26,6 +26,10 @@ import interfaces.AdministratorServiceLocal;
 @Consumes(MediaType.APPLICATION_JSON)
 
 public class AdministratorControleur implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Inject
 	AdministratorServiceLocal service;
 	

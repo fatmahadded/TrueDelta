@@ -1,6 +1,7 @@
 package pidev.api;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,13 +16,14 @@ import java.util.List;
 import Entities.Client;
 import Entities.Portfolio;
 import interfaces.ClientPrtServiceRemote;
+import services.ClientPrtService;
 
 @Path("/Client")
 
 public class ClientRest  {
 
 	@EJB
-	ClientPrtServiceRemote cp;
+	ClientPrtService cp;
 	@Path("/addClient")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -52,7 +52,7 @@ public class FirmController {
 	@GET
 	@Path("return/{symbol}")
 	public Response getExpectedReturn(@PathParam("symbol") String symbol) {
-		Map<String, Double> expectedReturn = service.getExpectedReturnByCompany(symbol);
+		Map<String, Double> expectedReturn = service.getExpectedReturnByCompany(symbol, 1);
 		return Response.status(Status.OK).entity(expectedReturn).build();
 	}
 	

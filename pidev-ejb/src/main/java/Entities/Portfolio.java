@@ -36,7 +36,7 @@ public class Portfolio implements Serializable{
     @Column(name="RiskCount")
     private int risk;
     @Column(name="AmountCount")
-    private int amount;
+    private double amount;
     
     @OneToOne
     private Conflict conflict;
@@ -85,10 +85,10 @@ public class Portfolio implements Serializable{
     public void setRisk(int risk) {
     	this.risk = risk;
     }
-    public int getAmount() {
+    public double getAmount() {
     	return amount;
     }
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
     	this.amount = amount;
     }
     public Conflict getConflict() {
