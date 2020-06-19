@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/template/template.xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:param name="page_name" value="Client's portfolio" />
+	
+
+
+	<ui:define name="content">
+	
+	<section class="banner-area">
+            <div class="banner-overlay">
+                <div class="banner-text text-center">
+                            
+                    
+                    <div class="container">
+                        <!-- Section Title Starts -->
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <h2 class="title-head"><span>Portfolio</span></h2>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="shop-cart">
+            <!--Start section-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 table-responsive">
+                    
+                        <h:form>
+                        <div class="tab-content">
+							<div id="menu1" class="tab-pane fade active in">
+                                <h:dataTable 
+								value="#{portfolioBean.DisplayAll(loginbean.LOGGEDIN_USER.idManager, param['idClient'])}" var="u"
+								class="table order text-center">
+								<h:column>
+									<f:facet name="header" class="col-xs-1"></f:facet>
+									<h:outputText value="" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-5">Type</f:facet>
+									<h:outputText value="#{u.getType()}" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2">Name</f:facet>
+									<h:outputText value="#{u.getTitle()}" class="col-xs-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-1 col-sm-2">Quantity</f:facet>
+									<h:outputText value="#{u.getQuantity()}" class="col-xs-1 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Cours</f:facet>
+									<h:outputText value="#{u.getClose()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">CM</f:facet>
+									<h:outputText value="#{u.getCm()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Poids</f:facet>
+									<h:outputText value="#{u.getPoids()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Risque</f:facet>
+									<h:outputText value="#{portfolioBean.risque}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Rendement</f:facet>
+									<h:outputText value="#{portfolioBean.rendement}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">RS</f:facet>
+									<h:outputText value="#{portfolioBean.rs}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+						
+							
+							</h:dataTable>
+                            </div>
+                            
+                            </div>
+
+						</h:form>
+						
+                    </div>
+                    <h:form>
+                    <div class="col-xs-12 offset-5">
+                        <div><h:commandButton class="btn btn-primary pull-right btn-proceed"
+                                              action="#{portfolioBean.addTransaction(clientsBean.getSelectId())}"
+										      value="Add Transaction" />
+						</div>	
+						<div><h:commandButton class="btn btn-danger pull-left btn-proceed"
+                                              action="#{portfolioBean.valider(clientsBean.getSelectId())}"
+										      value="Valider" />
+						</div>
+                   	<div class="container">
+						</div>
+                    </div>
+                    </h:form>
+                </div>
+            </div>   
+        </section>
+	</ui:define>
+	
+	
+	</ui:composition>

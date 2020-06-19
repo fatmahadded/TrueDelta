@@ -1,13 +1,11 @@
 package services;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import Entities.AssetManager;
 import Entities.Client;
@@ -18,20 +16,13 @@ import Entities.Transaction;
 
 @Stateless
 public class AssetManagerService implements AssetManagerRemote {
-	@PersistenceContext(unitName = "PiDbDS")
+
+	@PersistenceContext
 	EntityManager em;
 
 	@Override
 	public int addAssetManager(AssetManager assetmanager) {
-		System.out.println(" In addAssetManager: ");
 		em.persist(assetmanager);
-		System.out.println("Out of addAssetManager " + assetmanager.getIdManager());
-		/*
-		 * try { EmailService email = new EmailService();
-		 * email.sendEmail("ahmed.jaiem@esprit.tn", "test", "ahmed.jaiem@esprit.tn",
-		 * "Get shwity"); } catch (IOException | URISyntaxException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
 		return assetmanager.getIdManager();
 	}
 
@@ -57,6 +48,13 @@ public class AssetManagerService implements AssetManagerRemote {
 		AssetManager assetmanager = em.find(AssetManager.class, IdAssetManager);
 		System.out.println("Out of getAssetManagerById : ");
 		return assetmanager;
+
+	}
+
+	@Override
+	public Client getClientById(int IdClient) {
+		Client c = em.find(Client.class, IdClient);
+		return c;
 
 	}
 
@@ -100,6 +98,25 @@ public class AssetManagerService implements AssetManagerRemote {
 
 		float Montant = (float) (asset.getHigh() * trans.getQuantite());
 		return Montant;
+	}
+
+	@Override
+	public List<Client> allClientsByAssetManager(int id) {
+		AssetManager am = em.find(AssetManager.class, id);
+		List<Client> clients = new ArrayList<>();
+		for (Client c : am.getClients()) {
+			clients.add(c);
+		}
+
+		return clients;
+	}
+
+	@Override
+	public List<Client> getClientsByAssetManager(int id) {
+		TypedQuery<Client> query = em.createQuery("SELECT c from Client c where c.AssetManager.idManager=:id",
+				Client.class);
+		query.setParameter("id", id);
+		return query.getResultList();
 	}
 
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="title">
+		<title>Register</title>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="bg_color_2">			<div class="container margin_60_35">
+				<div id="register">
+					<div class="row justify-content-center">
+						<div class="col-md-5">
+							<h:form class="form-horizontal" role="form" prependId="false" enctype="multipart/form-data">
+
+								<h4>Register as AssetManager.</h4>
+								<hr />
+								<div class="box_form">
+									<div class="form-group">
+										<label>Last Name</label> <br />
+										<h:inputText value="#{testBean.lastName}" id="LastName"
+											class="form-control" />
+
+									</div>
+									<div class="form-group">
+										<label>First Name</label> <br />
+										<h:inputText value="#{testBean.firstName}" id="FirstName"
+											class="form-control" />
+									</div>
+									<div class="form-group">
+										<label>Password</label> <br />
+										<h:inputSecret id="Password" value="#{testBean.password}"
+											class="form-control" />
+									</div>
+									
+									<div class="form-group">
+										<label>Date</label> <br />
+										<h:inputText type="date" value="#{testBean.date}"
+											id="Date" class="form-control" >
+											 <f:convertDateTime pattern = "dd-mm-yyyy"/>
+											 </h:inputText>
+									</div>
+									
+									<div class="form-group">
+										<label>Image</label>
+										<p:outputLabel for="imageFile" value="imageFile" />
+										<h:panelGroup styleClass="md-inputfield">
+										<h:inputFile id="imageFile" value="#{testBean.imageFile}" autocomplete="off" />
+										</h:panelGroup>
+									</div>
+									
+									<div class="form-group">
+									<label>CV</label>
+										<p:outputLabel for="cvFile" value="cvFile" />
+										<h:panelGroup styleClass="md-inputfield">
+											<h:inputFile id="cvFile" value="#{testBean.cvFile}" autocomplete="off" />
+										</h:panelGroup>
+									</div>
+
+									<div id="pass-info" class="clearfix"></div>
+									<!--Checkbox obligatoire-->
+									<div class="form-group">
+
+										<h:selectBooleanCheckbox
+											value="#{testBean.termsAndConditions}" required="required" />
+										<label>Terms and Conditions</label>
+
+									</div>
+
+									<div class="form-group text-center add_top_30">
+								<h:commandButton class="btn_1" value="Register"
+											action="#{testBean.doRegister()}" />
+
+									</div>
+
+
+								</div>
+								<p class="text-center">
+									<small>Make sure your informations are exact for a
+										better experience.</small>
+								</p>
+
+							</h:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

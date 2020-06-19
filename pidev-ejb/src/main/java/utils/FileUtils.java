@@ -1,0 +1,102 @@
+package utils;
+
+import javax.ejb.Stateless;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Random;
+
+@Stateless
+//@PermitAll
+public class FileUtils {
+
+    //private String imageDirectoryPath = "/tmp/images/mymusic";
+    //private static final Logger LOGGER = Logger.getLogger(FileUtils.class);
+
+   /* public void setImageDirectoryPath(String path) {
+        this.imageDirectoryPath = path;
+    }*/
+
+    public static String getFileNameFromPart(Part part) {
+        /*final String partHeader = part.getHeader("content-disposition");
+        for (String content : partHeader.split(";")) {
+            if (content.trim().startsWith("filename") && content.trim().indexOf('=') != -1) {
+                return content.substring(content.indexOf('=') + 1)
+                        .trim().replace("\"", "");
+            }
+        }
+        return null;*/
+    	
+    	for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
+    }
+    
+
+    public String getFileTypFromPart(Part part) {
+        String fileTyp = null;
+        String fileName = getFileNameFromPart(part);
+        if(fileName != null) {
+            fileTyp = fileName.substring(fileName.lastIndexOf('.'));
+        }
+
+        return fileTyp;
+    }
+
+    /**
+     * Save image on filesystem
+     *
+     * @param imageFile
+     * @return filename of saved image
+     */
+    /*
+    public String saveImageOnFilesystem(Part imageFile) {
+        String imageName = null;
+
+        try {
+            if (imageFile != null && imageFile.getSize() > 0) {
+                String fileTyp = getFileTypFromPart(imageFile);
+                Random random = new Random();
+                long uuid = random.nextLong();
+                imageName = uuid + fileTyp;
+                Path filePath = Paths.get(imageDirectoryPath + File.separator  + imageName);
+                Files.copy(imageFile.getInputStream(), filePath);
+
+                LOGGER.info("Image: " + imageName + " was uploaded and saved!");
+            }
+        } catch(IOException ex) {
+            LOGGER.error("Image couldn´t be loaded and saved! " + ex);
+            return null;
+        }
+
+        return imageName;
+    }
+*/
+    /**
+     * Delete a file
+     *
+     * @param filename
+     *        filename
+     * @return <code>true</code> if and only if the file was correctly deleted
+     *         <code>false</code> otherwise
+     */
+    /*
+    public boolean deleteFile(String filename) {
+        Path pathToFile = Paths.get(imageDirectoryPath + File.separator + filename);
+        try {
+            return Files.deleteIfExists(pathToFile);
+        } catch(IOException ex) {
+            LOGGER.error("Image could not be deleted: " + filename + ", " + ex);
+        }
+
+        return false;
+    }
+    */
+}

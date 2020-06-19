@@ -2,8 +2,11 @@ package interfaces;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import Entities.Feedback;
 
+@Local
 public interface FeedbackClient {
 	public Feedback addFeedback(long idFrom, long idTo, String message);
 

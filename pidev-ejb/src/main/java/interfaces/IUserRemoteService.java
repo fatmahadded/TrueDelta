@@ -2,12 +2,12 @@ package interfaces;
 
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
-import Entities.*;
+import Entities.AssetManager;
 
-@Local
-public interface IUserLocalService {
+@Remote
+public interface IUserRemoteService {
 	AssetManager login(String username, String password);
 	void create(AssetManager user);
 	Boolean updateUser(AssetManager usr,  int id_manager);

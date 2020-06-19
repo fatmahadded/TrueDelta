@@ -20,4 +20,5 @@ public interface IFirmLocalService {
 	public Map<Object, Object> getEstimationByCompany();
 	public int getFirmCount();
 	public int getRecordsCount();
+	public List<Firm> listFirms();
 }

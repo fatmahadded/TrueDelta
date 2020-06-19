@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="title">
+		<title>addTransaction</title>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="bg_color_2">			<div class="container margin_60_35">
+				<div id="register">
+					<div class="row justify-content-center">
+						<div class="col-md-5">
+							<h:form class="form-horizontal" role="form">
+
+								<h4>Add Transaction</h4>
+								<hr />
+								<div class="box_form">
+									<div class="form-group">
+										<label>Type</label> <br />
+										<h:selectOneMenu styleClass="selectpicker"
+																data-style="btn btn-primary btn-round"
+																value="#{transactionBean.type}">
+
+																<f:selectItems value="#{transactionBean.Types()}" />
+															</h:selectOneMenu>
+
+									</div>
+									
+									<div class="form-group">
+										<label>Firm's Name</label> <br />
+									<h:selectOneMenu id="console" value="#{transactionBean.firm}" filterMatchMode="contains" filter="true" style="width:125px">
+							   			<f:selectItems  value="#{transactionBean.Firms()}" var="Firm" itemValue="#{Firm.id}" itemLabel="#{Firm.name}"></f:selectItems>
+							        </h:selectOneMenu>
+							        </div>
+									<div class="form-group">
+										<label>Quantity</label> <br />
+										<h:inputText id="Quantity" value="#{transactionBean.quantity}"
+											class="form-control" />
+									</div>
+									
+									<div class="form-group">
+										<label>Date</label> <br />
+										<h:inputText type="date" value="#{transactionBean.date}"
+											id="Date" class="form-control" >
+											 <f:convertDateTime pattern = "dd-mm-yyyy"/>
+											 </h:inputText>
+									</div>
+									
+
+									<div class="form-group text-center add_top_30">
+								<h:commandButton class="btn_1" value="Add transaction"
+											action="#{transactionBean.add(loginbean.LOGGEDIN_USER.idManager, clientsBean.getSelectId() )}" />
+
+									</div>
+
+
+								</div>
+
+							</h:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

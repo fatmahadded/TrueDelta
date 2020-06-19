@@ -295,4 +295,9 @@ public class FirmLocalService implements IFirmLocalService {
 		return null;
 	}
 
+	@Override
+	public List<Firm> listFirms() {
+		return em.createQuery("select d from Firm d", Firm.class).getResultList();
+	}
+
 }

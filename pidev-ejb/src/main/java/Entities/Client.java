@@ -10,21 +10,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "Client")
 public class Client implements Serializable {
 
-	
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +29,7 @@ public class Client implements Serializable {
 	private int idclient; // Clé primaire
 	@Column(name = "Username")
 	private String username;
-    @Column(name = "Firstname")
+	@Column(name = "Firstname")
 	private String firstname;
 	@Column(name = "Lastname")
 	private String lastname;
@@ -40,20 +37,24 @@ public class Client implements Serializable {
 	private String password;
 	@Column(name = "IdAsst")
 	private int idAsset;
-	
-	@OneToMany(mappedBy="Client",cascade= {CascadeType.ALL, CascadeType.REMOVE},
-            fetch=FetchType.EAGER)
-            private Set<Portfolio> Portfolios;
 
+	@OneToMany(mappedBy = "Client", cascade = { CascadeType.ALL, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	private Set<Portfolio> Portfolios;
 
-    @OneToMany( mappedBy="Clients",cascade= {CascadeType.ALL, CascadeType.REMOVE})
-            private Set<BankAccount> BankAccounts;
-	
-	
+	@OneToMany(mappedBy = "Clients", cascade = { CascadeType.ALL, CascadeType.REMOVE })
+	private Set<BankAccount> BankAccounts;
+
+	@OneToMany(mappedBy = "Client", cascade = { CascadeType.ALL, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	private Set<TransactionTemporelle> TransactionTemporelles;
+
+	@ManyToOne
+	AssetManager AssetManager;
+
 	public int getIdClient() {
-		return idclient ;
+		return idclient;
 	}
-	public void setIdClient( int idclient) {
+
+	public void setIdClient(int idclient) {
 		this.idclient = idclient;
 	}
 
@@ -65,7 +66,6 @@ public class Client implements Serializable {
 		this.username = username;
 	}
 
-	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -73,8 +73,7 @@ public class Client implements Serializable {
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-	
-	
+
 	public String getLastname() {
 		return lastname;
 	}
@@ -90,12 +89,15 @@ public class Client implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public int getIdAsset() {
 		return idAsset;
 	}
+
 	public void setIdAsset(int idAsset) {
 		this.idAsset = idAsset;
 	}
+
 	public Set<Portfolio> getPortfolios() {
 		return Portfolios;
 	}
@@ -111,41 +113,40 @@ public class Client implements Serializable {
 	public void setBankAccounts(Set<BankAccount> bankAccounts) {
 		BankAccounts = bankAccounts;
 	}
-	
-	
 
 	@Override
 	public String toString() {
-		return "Client [idClient=" + idclient + ", Username=" + username + ", Lastname=" + lastname+ ", Firstname" + firstname +
-				 ", Password=" + password + ", Image=" + idAsset +", Portfolios=" + Portfolios + ", BankAccounts=" +BankAccounts +  "]";
+		return "Client [idClient=" + idclient + ", Username=" + username + ", Lastname=" + lastname + ", Firstname"
+				+ firstname + ", Password=" + password + ", Image=" + idAsset + ", Portfolios=" + Portfolios
+				+ ", BankAccounts=" + BankAccounts + "]";
 	}
 
-
-	public void addPortfolio(Portfolio portfolio){
+	public void addPortfolio(Portfolio portfolio) {
 		portfolio.setClient(this);
 		this.Portfolios.add(portfolio);
 	}
 
-	public void addBankAccount(BankAccount ba){
+	public void addBankAccount(BankAccount ba) {
 		ba.setClients(this);
 		this.BankAccounts.add(ba);
 	}
 
+	// constructeur
+	public Client() {
+	}
 
-	//constructeur
-	public Client() {}
-	public Client( String username, String firstname, String lastname, String password, int idasset,Set<Portfolio> portfolios,Set<BankAccount> bankAccounts) {
+	public Client(String username, String firstname, String lastname, String password, int idasset,
+			Set<Portfolio> portfolios, Set<BankAccount> bankAccounts) {
 		super();
-		
+
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
 		this.idAsset = idasset;
 		Portfolios = portfolios;
-		BankAccounts= bankAccounts;
-		
+		BankAccounts = bankAccounts;
+
 	}
-	
-	
+
 }

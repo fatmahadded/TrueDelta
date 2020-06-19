@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="title">
+		<title>Clients</title>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<div class="tabs_styled_2">
+			<div class="tab-content">
+
+				<div class="tab-pane fade show active" id="book" role="tabpanel"
+					aria-labelledby="book-tab">
+
+					<div class="main_title_3">
+						<h3>Clients</h3>
+					</div>
+					<div class="form-group add_bottom_45">
+						<h:dataTable class="table"
+							value="#{clientsBean.GetAll(loginbean.LOGGEDIN_USER.idManager)}" var="cp" id="tab">
+							<tbody>
+								<h:column>
+									<f:facet name="header" class="warning">
+										<h:outputLabel value="Avatar" />
+									</f:facet>
+									
+									<img src="../../resources/images/avatarblueprofile.png" style="width:20%" />
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="warning">
+										<h:outputLabel value="First Name" />
+									</f:facet>
+									<h:outputText value="#{cp.firstname}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="warning">
+										<h:outputLabel value="Last Name" />
+									</f:facet>
+									<h:outputText value="#{cp.lastname}" />
+								</h:column>
+							
+								<h:column>
+									<h:form>
+										<h:commandButton
+											action="#{clientsBean.getPortfolio(cp.idclient)}"
+											value="See portfolio" class="btn_1" />
+									</h:form>
+								</h:column>
+							</tbody>
+						</h:dataTable>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -3,7 +3,6 @@ package Entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,12 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="HistoricalEntity")
-public class Asset implements Serializable{
+@Table(name = "HistoricalEntity")
+public class Asset implements Serializable {
 	/**
 	 *
 	 */
@@ -27,40 +25,43 @@ public class Asset implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private int id; // Clé primaire
-	
+
 	@Column(name = "Date")
 	private Date date;
-	
+
 	@Column(name = "Open")
 	private double open;
-	
+
 	@Column(name = "High")
 	private double high;
-	
+
 	@Column(name = "Low")
 	private double low;
-	
+
 	@Column(name = "Close")
 	private double close;
-	
+
 	@Column(name = "Volume")
 	private long volume;
-	
+
 	@Column(name = "Dividends")
 	private double dividends;
-	
+
 	@Column(name = "StockSplits")
 	private double stock_splits;
-	
+
 	@Enumerated(EnumType.STRING)
-	private Type type ;
-	
+	private Type type;
+
 	@ManyToOne
 	private Transaction transaction;
-	
+
 	@ManyToOne
 	private Firm firm;
 	
+	@ManyToOne
+	private TransactionTemporelle transactionT;
+
 	public Asset() {
 		super();
 	}
@@ -157,6 +158,29 @@ public class Asset implements Serializable{
 	public void setFirm(Firm firm) {
 		this.firm = firm;
 	}
-	
-	
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
+	}
+
+	public TransactionTemporelle getTransactionT() {
+		return transactionT;
+	}
+
+	public void setTransactionT(TransactionTemporelle transactionT) {
+		this.transactionT = transactionT;
+	}
+
 }

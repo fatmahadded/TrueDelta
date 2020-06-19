@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="title">
+		<title>Login</title>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="bg_color_2">
+			<div class="container margin_60_35">
+				<div id="login-2">
+					<h1>Login</h1>
+					<h:form>
+						<div class="box_form clearfix">
+							<div class="box_login last">
+								<div class="form-group">
+									<h:outputText value="Username" class="control-label" />
+									<h:inputText value="#{loginbean.username}" class="form-control"
+										placeholder="Your name" />
+								</div>
+								<div class="form-group">
+									<h:outputText value="Password" class="control-label" />
+									<h:inputSecret value="#{loginbean.password}" class="form-control"
+										placeholder="Your password" />
+									<a href="#0" class="forgot"><small>Forgot password?</small></a>
+								</div>
+								<div class="form-group">
+									<h:commandButton class="btn_1" action="#{loginbean.connect()}"
+										value="Login" />
+								</div>
+							</div>
+						</div>
+					</h:form>
+					<p class="text-center link_bright">
+						Do not have an account yet? <a href="/pijee-web/pages/user/register.jsf"><strong>Register
+								now!</strong></a>
+					</p>
+				</div>
+				<!-- /login -->
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
